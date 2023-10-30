@@ -18,6 +18,8 @@
 		7806A4EC2AEEBC2F000C3490 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7806A4EB2AEEBC2F000C3490 /* HomeViewController.swift */; };
 		7806A4EE2AEEBC70000C3490 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7806A4ED2AEEBC70000C3490 /* SearchViewController.swift */; };
 		7806A4F22AEEBD6A000C3490 /* PackageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7806A4F12AEEBD6A000C3490 /* PackageDetailsViewController.swift */; };
+		97FA83142AF03BEC00E8B9E6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FA83132AF03BEC00E8B9E6 /* LoginViewController.swift */; };
+		97FA83162AF03BFE00E8B9E6 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FA83152AF03BFE00E8B9E6 /* RegisterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		7806A4EB2AEEBC2F000C3490 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		7806A4ED2AEEBC70000C3490 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		7806A4F12AEEBD6A000C3490 /* PackageDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageDetailsViewController.swift; sourceTree = "<group>"; };
+		97FA83132AF03BEC00E8B9E6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		97FA83152AF03BFE00E8B9E6 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,8 @@
 				7806A4EB2AEEBC2F000C3490 /* HomeViewController.swift */,
 				7806A4ED2AEEBC70000C3490 /* SearchViewController.swift */,
 				7806A4F12AEEBD6A000C3490 /* PackageDetailsViewController.swift */,
+				97FA83132AF03BEC00E8B9E6 /* LoginViewController.swift */,
+				97FA83152AF03BFE00E8B9E6 /* RegisterViewController.swift */,
 				7806A4C12AEEBB28000C3490 /* Main.storyboard */,
 				7806A4C42AEEBB2C000C3490 /* Assets.xcassets */,
 				7806A4C62AEEBB2C000C3490 /* LaunchScreen.storyboard */,
@@ -264,7 +270,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97FA83142AF03BEC00E8B9E6 /* LoginViewController.swift in Sources */,
 				7806A4BC2AEEBB28000C3490 /* AppDelegate.swift in Sources */,
+				97FA83162AF03BFE00E8B9E6 /* RegisterViewController.swift in Sources */,
 				7806A4BE2AEEBB28000C3490 /* SceneDelegate.swift in Sources */,
 				7806A4EE2AEEBC70000C3490 /* SearchViewController.swift in Sources */,
 				7806A4F22AEEBD6A000C3490 /* PackageDetailsViewController.swift in Sources */,
