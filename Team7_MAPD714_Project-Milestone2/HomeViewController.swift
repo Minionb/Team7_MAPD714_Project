@@ -19,6 +19,11 @@ class HomeViewController: UIViewController {
     }
     
 
+    @IBAction func Search(_ sender: UIButton) {
+        let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
+        
+        present(control, animated: true)
+    }
     /*
     // MARK: - Navigation
 
