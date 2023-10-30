@@ -11,19 +11,65 @@
 import UIKit
 
 class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var sortingPicker: UIPickerView!
+    
 
-    let curisePackages = [
-        ["ID" : "Bahamas1", "Cruise_Type" : "Bahamas Cruise","Visting_Places" : "Miami,Florida | Nassau,Bahamas | Ocean Cay MSC Marine Reserve,Bahamas | Maimi,Florida", "Cruise_Price" : 272, "duration" : 3, "Start_Date" :" 01/12/2024", "End_Date" : "01/15/2024"],
+    private let sorting = [
+         "Duration: Long to Short", "Duration: Short to Long", "Price: Low to High", "Price: High to Low"]
+    
+    var curisePackages = [
+        ["ID" : "Bahamas1", "Cruise_Type" : "Bahamas Cruise","Visting_Places" : "Miami,Florida | Nassau,Bahamas | Ocean Cay MSC Marine Reserve,Bahamas | Maimi,Florida", "Cruise_Price" : 272, "duration" : 3, "Start_Date" : "01/12/2024", "End_Date" : "01/15/2024"],
         ["ID":"Caribbean1", "Cruise_Type":"Caribbean Cruise","Visting_Places":"Miami, Florida | Puerto Plata, Dominican Republic", "Cruise_Price":200, "duration":2, "Start_Date":"01/15/2024", "End_Date":"01/17/2024"],
         ["ID":"Cuba1", "Cruise_Type":"Cuba Cruise","Visting_Places":"Orlando (Port Canaveral), Florida | Cozumel, Mexico | Orlando (Port Canaveral), Florida", "Cruise_Price":350, "duration":4, "Start_Date":"01/24/2024", "End_Date":"01/28/2024"],
-        ["ID":"Sampler1", "Cruise_Type":"Sampler Cruise","Visting_Places":"ampa, Florida | Cozumel, Mexico | Tampa, Florida", "Cruise_Price":345, "duration":4, "Start_Date":"02/02/2024", "End_Date":"02/06/2024"] as [String : Any],
+        ["ID":"Sampler1", "Cruise_Type":"Sampler Cruise","Visting_Places":"ampa, Florida | Cozumel, Mexico | Tampa, Florida", "Cruise_Price":345, "duration":4, "Start_Date":"02/02/2024", "End_Date":"02/06/2024"],
         ["ID":"Star1", "Cruise_Type":"Star Cruise","Visting_Places":"Singapore, Singapore | Penang, Malaysia | Singapore, Singapore", "Cruise_Price":285, "duration":3, "Start_Date":"01/30/2024", "End_Date":"02/02/2024"],
     ]
+    
+    @IBAction func onFilterPressed(_ sender: UIButton) {
+        
+        let row = sortingPicker.selectedRow(inComponent: 0)
+        let selectedFilter = sorting[row]
+        
+        // Sort the cruise packages by selected filter
+        if (selectedFilter == "Duration: Long to Short"){
+            let sortedArray = curisePackages.sorted { ($0["duration"] as! Int) > ($1["duration"] as! Int) }
+            curisePackages = sortedArray
+            // Reload the entire table view
+            tableView.reloadData()
+        }
+        else if (selectedFilter == "Duration: Short to Long"){
+            let sortedArray = curisePackages.sorted { ($0["duration"] as! Int) < ($1["duration"] as! Int) }
+            curisePackages = sortedArray
+            // Reload the entire table view
+            tableView.reloadData()
+        }
+        else if (selectedFilter == "Price: Low to High"){
+            let sortedArray = curisePackages.sorted { ($0["Cruise_Price"] as! Int) < ($1["Cruise_Price"] as! Int) }
+            curisePackages = sortedArray
+            // Reload the entire table view
+            tableView.reloadData()
+        }
+        else if (selectedFilter == "Price: High to Low"){
+            let sortedArray = curisePackages.sorted { ($0["Cruise_Price"] as! Int) > ($1["Cruise_Price"] as! Int) }
+            curisePackages = sortedArray
+            // Reload the entire table view
+            tableView.reloadData()
+        }
+
+    }
+    
+    
     
     let searchTableIdentifier = "SearchTableIdentifier"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        sortingPicker.dataSource = self
+        sortingPicker.delegate = self
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,14 +90,40 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         
         let cruiseTypeString = String(describing: rowData["Cruise_Type"] ?? 0)
         let cruiseDurationString = String(describing: rowData["duration"] ?? 0)
-        let cruiseHeader = cruiseDurationString + "-Night " + cruiseTypeString
+        let cruiseStartDateString = String(describing: rowData["Start_Date"] ?? 0)
+
+        let cruiseHeader = cruiseDurationString + "-Night " + cruiseTypeString + " on " + cruiseStartDateString
+        
         cell?.textLabel?.text =  cruiseHeader
+        
+        cell?.textLabel?.font = UIFont.systemFont(ofSize: 12)
         
         let price =  String(describing: rowData["Cruise_Price"] ?? 0)
         let priceString = "$" + price
+        
         cell?.detailTextLabel?.text = priceString
         
-        tableView.rowHeight = 70
+        cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 12)
+        
+        tableView.rowHeight = 60
+        
+        let imageName = cruiseTypeString
+        
+        let originalImage = UIImage(named: imageName)
+        
+        
+        // Resize Image
+        let newSize = CGSize(width: 60, height:45)
+
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+        
+        originalImage?.draw(in: CGRect(origin: .zero, size: newSize))
+
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+
+        UIGraphicsEndImageContext()
+        
+        cell?.imageView?.image = image
         
         return cell!
     }
@@ -60,8 +132,9 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             let rowData = curisePackages[indexPath.row]
             let cruiseTypeString = String(describing: rowData["Cruise_Type"] ?? 0)
             let cruiseDurationString = String(describing: rowData["duration"] ?? 0)
-            let cruiseHeader = cruiseDurationString + "-Night " + cruiseTypeString
-            let message = "You selected " + cruiseHeader
+            let cruiseStartDateString = String(describing: rowData["Start_Date"] ?? 0)
+
+
         
             let control = storyboard?.instantiateViewController(withIdentifier: "packageDetails") as! PackageDetailsViewController
         
@@ -70,3 +143,24 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         }
     
 }
+
+// MARK: Picker Data Source Methods
+
+extension SearchViewController: UIPickerViewDataSource{
+func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    return 1
+}
+
+func pickerView(_ pickerView: UIPickerView,
+                numberOfRowsInComponent component: Int) -> Int {
+    return sorting.count
+}
+}
+
+extension SearchViewController: UIPickerViewDelegate{
+// MARK: Picker Delegate Methods
+func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    return sorting[row]
+}
+}
+
