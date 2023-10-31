@@ -12,18 +12,20 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var errorLabelText: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        errorLabelText.textColor = .white
         // Do any additional setup after loading the view.
     }
     
     @IBAction func signinButtonOnClicked(_ sender: Any) {
         if (emailTextField.text?.isEmpty == true || passwordTextField.text?.isEmpty == true) {
-            errorLabel.textColor = .systemRed
+            errorLabelText.textColor = .systemRed
         }
         else {
-            errorLabel.textColor = .white
+            errorLabelText.textColor = .white
 //            let loginAlert = UIAlertController(title: "Login Successful", message: "", preferredStyle: .alert)
 //            let continueAction = UIAlertAction(title: "Continue", style: .cancel, handler: nil)
 //            loginAlert.addAction(continueAction)

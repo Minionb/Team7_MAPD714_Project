@@ -15,7 +15,6 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var ageTextField: UITextField!
     @IBOutlet weak var addressTextField: UITextField!
-    @IBOutlet weak var errorTextLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +24,10 @@ class RegisterViewController: UIViewController {
     
     @IBAction func signUpButtonOnClicked(_ sender: Any) {
         if (firstNameTextField.text?.isEmpty == true || lastNameTextField.text?.isEmpty == true || emailTextField.text?.isEmpty == true || passwordTextField.text?.isEmpty == true || ageTextField.text?.isEmpty == true || addressTextField.text?.isEmpty == true) {
-            errorTextLabel.textColor = .systemRed
+//            errorTextLabel.textColor = .systemRed
         }
         else {
-            errorTextLabel.textColor = .white
+//            errorTextLabel.textColor = .white
             
             let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
             
