@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xmX-MY-sPZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xmX-MY-sPZ">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -267,13 +266,6 @@
                                     <action selector="signUpButtonOnClicked:" destination="xFM-E2-IdD" eventType="touchUpInside" id="iRQ-Og-hZQ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="A Field is Empty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUd-Qc-kKC">
-                                <rect key="frame" x="135" y="636" width="122" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="knp-RR-bgo">
                                 <rect key="frame" x="75" y="544" width="243" height="35"/>
                                 <state key="normal" title="Button"/>
@@ -283,6 +275,12 @@
                                     <action selector="guestButtonOnClicked:" destination="FAr-oI-jNl" eventType="touchUpInside" id="Epn-fh-CiK"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="One or More Fields are Empty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecK-59-ccR">
+                                <rect key="frame" x="83" y="609" width="226" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dIW-jo-gei"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -323,12 +321,15 @@
                             <constraint firstItem="dIW-jo-gei" firstAttribute="trailing" secondItem="tHT-Sx-hpd" secondAttribute="trailing" constant="75" id="hFn-Ru-4Bs"/>
                             <constraint firstItem="knp-RR-bgo" firstAttribute="leading" secondItem="dIW-jo-gei" secondAttribute="leading" constant="75" id="hhZ-uk-rl3"/>
                             <constraint firstItem="knp-RR-bgo" firstAttribute="top" secondItem="cca-GP-mjh" secondAttribute="bottom" constant="8" symbolic="YES" id="kMz-h6-Xdx"/>
+                            <constraint firstItem="ecK-59-ccR" firstAttribute="leading" secondItem="dIW-jo-gei" secondAttribute="leading" constant="83" id="kg3-Oo-CNu"/>
                             <constraint firstItem="qRD-Wj-hP3" firstAttribute="top" secondItem="fkw-Nv-qGD" secondAttribute="bottom" id="mtc-dd-8Ly"/>
                             <constraint firstItem="dIW-jo-gei" firstAttribute="trailing" secondItem="zNY-5P-OPM" secondAttribute="trailing" constant="75" id="qNm-cp-XCK"/>
                             <constraint firstItem="tiF-AX-SjH" firstAttribute="leading" secondItem="dIW-jo-gei" secondAttribute="leading" constant="75" id="qyl-XA-g3D"/>
                             <constraint firstItem="cca-GP-mjh" firstAttribute="top" secondItem="jku-n6-gaQ" secondAttribute="bottom" constant="8" symbolic="YES" id="tZh-Dz-3VG"/>
                             <constraint firstItem="dIW-jo-gei" firstAttribute="trailing" secondItem="BRI-E9-eSn" secondAttribute="trailing" constant="75" id="ted-Q9-lbz"/>
                             <constraint firstItem="tHT-Sx-hpd" firstAttribute="leading" secondItem="dIW-jo-gei" secondAttribute="leading" constant="75" id="uUn-Eu-lVl"/>
+                            <constraint firstItem="ecK-59-ccR" firstAttribute="top" secondItem="knp-RR-bgo" secondAttribute="bottom" constant="30" id="wNV-mt-6gJ"/>
+                            <constraint firstItem="dIW-jo-gei" firstAttribute="trailing" secondItem="ecK-59-ccR" secondAttribute="trailing" constant="84" id="zJD-lX-t0k"/>
                             <constraint firstItem="dIW-jo-gei" firstAttribute="trailing" secondItem="jku-n6-gaQ" secondAttribute="trailing" constant="75" id="zgs-nJ-x70"/>
                             <constraint firstItem="BRI-E9-eSn" firstAttribute="top" secondItem="tiF-AX-SjH" secondAttribute="bottom" id="zrk-5q-vh0"/>
                             <constraint firstItem="fkw-Nv-qGD" firstAttribute="leading" secondItem="dIW-jo-gei" secondAttribute="leading" constant="75" id="zwb-pd-0Wd"/>
@@ -339,7 +340,7 @@
                         <outlet property="addressTextField" destination="jku-n6-gaQ" id="Hih-uh-TFu"/>
                         <outlet property="ageTextField" destination="Js8-e1-StX" id="1et-uY-YxL"/>
                         <outlet property="emailTextField" destination="PQq-cE-IoS" id="3zv-7p-VM2"/>
-                        <outlet property="errorTextLabel" destination="hUd-Qc-kKC" id="agv-xA-aXp"/>
+                        <outlet property="errorTextLabel" destination="ecK-59-ccR" id="ICA-lO-QXM"/>
                         <outlet property="firstNameTextField" destination="BRI-E9-eSn" id="yRf-DK-o8G"/>
                         <outlet property="lastNameTextField" destination="fkw-Nv-qGD" id="lMh-57-zP5"/>
                         <outlet property="passwordTextField" destination="ffu-qT-u1N" id="XPb-gO-Oqn"/>
