@@ -9,6 +9,7 @@
 //  Description: Cruise Packages Details Screen
 
 import UIKit
+import WebKit
 
 class PackageDetailsViewController: UIViewController,UITableViewDataSource, UITableViewDelegate{
     
@@ -96,8 +97,45 @@ class PackageDetailsViewController: UIViewController,UITableViewDataSource, UITa
 
         cruiseTypeResultLabel.text = cruiseTypeResult
         
+        // Create a button
+        let nextButton = UIButton(type: .system)
+        
+        // Set the button title
+        nextButton.setTitle("Next", for: .normal)
+        
+        // Set the button size
+        nextButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        
+        // Set the button's position and size using Auto Layout
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(nextButton)
+        NSLayoutConstraint.activate([
+            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            nextButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        // Add an action to the button
+        nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+        
         
     }
+    @objc func nextButtonClicked() {
+            // Action to perform when the button is tapped
+        let control = storyboard?.instantiateViewController(withIdentifier: "customerInfo") as! CustomerInfoViewController
+        
+        // Pass the info to Customer Info Screen
+        control.IDResult = IDResult
+        control.cruiseTypeResult = cruiseTypeResult
+        control.vistingPlaceResult = vistingPlaceResult
+        control.cruisePriceResult = cruisePriceResult
+        control.cruiseDurationResult = cruiseDurationResult
+        control.cruiseStartDateResult = cruiseStartDateResult
+        control.cruiseEndDateResult = cruiseEndDateResult
+        
+        present(control, animated: true)
+        }
     
     let packageDetailsIdentifier = "PackageDetailsIdentifier"
     
@@ -130,6 +168,34 @@ class PackageDetailsViewController: UIViewController,UITableViewDataSource, UITa
         return cell!
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //tableView.deselectRow(at: indexPath, animated: true)
+        let rowData = cruiseDetails[indexPath.row]
+        
+        let tag = String(describing: rowData["tag"] ?? "")
+        
+        print(tag)
+        
+        if indexPath.row == 0 {
+            
+            // Define controller to bring to the Package Details Screen
+            let control = storyboard?.instantiateViewController(withIdentifier: "webView") as! WebViewController
+        
+            if let url = URL(string: "https://www.centennialcollege.ca") {
+                control.url = url
+            } else {
+                // The string couldn't be converted to a valid URL
+                print("Invalid URL")
+            }
+            
+            // Go to the  Package Details Screen
+            present(control, animated: true)
+        }
+        }
+    
+    
+}
+    
     
 
-}
+
