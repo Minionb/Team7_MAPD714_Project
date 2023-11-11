@@ -313,6 +313,7 @@ class CustomerInfoViewController: UIViewController {
             control.cruiseStartDateResult = cruiseStartDateResult
             control.cruiseEndDateResult = cruiseEndDateResult
             
+            // Go to Payment Screen
             present(control, animated: true)
         }
         else{

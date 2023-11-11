@@ -25,7 +25,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         ["ID" : "Bahamas1", "Cruise_Type" : "Bahamas Cruise","Visting_Places" : "Miami | Nassau,Bahamas ", "Cruise_Price" : 272, "duration" : 3, "Start_Date" : "01/12/2024", "End_Date" : "01/15/2024"],
         ["ID":"Caribbean1", "Cruise_Type":"Caribbean Cruise","Visting_Places":"Miami, Florida | Puerto Plata", "Cruise_Price":200, "duration":2, "Start_Date":"01/15/2024", "End_Date":"01/17/2024"],
         ["ID":"Cuba1", "Cruise_Type":"Cuba Cruise","Visting_Places":"Orlando | Cozumel, Mexico", "Cruise_Price":350, "duration":4, "Start_Date":"01/24/2024", "End_Date":"01/28/2024"],
-        ["ID":"Sampler1", "Cruise_Type":"Sampler Cruise","Visting_Places":"ampa,Florida | Cozumel,Mexico", "Cruise_Price":345, "duration":4, "Start_Date":"02/02/2024", "End_Date":"02/06/2024"],
+        ["ID":"Sampler1", "Cruise_Type":"Sampler Cruise","Visting_Places":"Tampa,Florida | Cozumel,Mexico", "Cruise_Price":345, "duration":4, "Start_Date":"02/02/2024", "End_Date":"02/06/2024"],
         ["ID":"Star1", "Cruise_Type":"Star Cruise","Visting_Places":"Singapore | Penang, Malaysia", "Cruise_Price":285, "duration":3, "Start_Date":"01/30/2024", "End_Date":"02/02/2024"],
     ]
     
