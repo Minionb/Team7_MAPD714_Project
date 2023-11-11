@@ -12,10 +12,35 @@ import UIKit
 
 class PaymentViewController: UIViewController {
     
-    var customerName: String?
-    var customerAddress: String?
-    var cityAndCountry: String?
-    var hasSenior: String?
+    
+    @IBOutlet weak var Confirm: UIButton!
+    
+    // Bring result passed from the Customer Info screen
+    var customerNameResult: String?
+    
+    var customerAddressResult: String?
+    
+    var cityAndCountryResult: String?
+    
+    var hasSeniorResult: String?
+    
+    var numberOfAdultsResult: Int?
+    
+    var numberOfKidsResult: Int?
+    
+    var IDResult: String?
+    
+    var cruiseTypeResult: String?
+    
+    var vistingPlaceResult: String?
+    
+    var cruisePriceResult: String?
+    
+    var cruiseDurationResult: String?
+    
+    var cruiseStartDateResult: String?
+    
+    var cruiseEndDateResult: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +49,7 @@ class PaymentViewController: UIViewController {
                 let label = UILabel()
                 
                 // Set the text
-                label.text = customerName
+                label.text = customerNameResult
                 
                 // Set the font
                 label.font = UIFont.systemFont(ofSize: 18)
@@ -39,6 +64,27 @@ class PaymentViewController: UIViewController {
                     label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                     label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
                 ])
+    }
+    
+    
+    @IBAction func onConfirmPressed(_ sender: UIButton) {
+        
+        let control = storyboard?.instantiateViewController(withIdentifier: "cruiseReservationInfo") as! CruiseReservationInfoViewController
+        
+        // Pass the info to Cruise Reservation Info Screen
+        control.customerNameResult = customerNameResult
+        control.customerAddressResult = customerAddressResult
+        control.cityAndCountryResult = cityAndCountryResult
+        control.hasSeniorResult = hasSeniorResult
+        control.IDResult = IDResult
+        control.cruiseTypeResult = cruiseTypeResult
+        control.vistingPlaceResult = vistingPlaceResult
+        control.cruisePriceResult = cruisePriceResult
+        control.cruiseDurationResult = cruiseDurationResult
+        control.cruiseStartDateResult = cruiseStartDateResult
+        control.cruiseEndDateResult = cruiseEndDateResult
+        
+        present(control, animated: true)
     }
     
 

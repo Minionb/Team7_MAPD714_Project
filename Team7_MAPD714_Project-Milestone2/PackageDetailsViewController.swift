@@ -9,6 +9,7 @@
 //  Description: Cruise Packages Details Screen
 
 import UIKit
+import WebKit
 
 class PackageDetailsViewController: UIViewController,UITableViewDataSource, UITableViewDelegate{
     
@@ -124,6 +125,15 @@ class PackageDetailsViewController: UIViewController,UITableViewDataSource, UITa
             // Action to perform when the button is tapped
         let control = storyboard?.instantiateViewController(withIdentifier: "customerInfo") as! CustomerInfoViewController
         
+        // Pass the info to Customer Info Screen
+        control.IDResult = IDResult
+        control.cruiseTypeResult = cruiseTypeResult
+        control.vistingPlaceResult = vistingPlaceResult
+        control.cruisePriceResult = cruisePriceResult
+        control.cruiseDurationResult = cruiseDurationResult
+        control.cruiseStartDateResult = cruiseStartDateResult
+        control.cruiseEndDateResult = cruiseEndDateResult
+        
         present(control, animated: true)
         }
     
@@ -158,6 +168,34 @@ class PackageDetailsViewController: UIViewController,UITableViewDataSource, UITa
         return cell!
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //tableView.deselectRow(at: indexPath, animated: true)
+        let rowData = cruiseDetails[indexPath.row]
+        
+        let tag = String(describing: rowData["tag"] ?? "")
+        
+        print(tag)
+        
+        if indexPath.row == 0 {
+            
+            // Define controller to bring to the Package Details Screen
+            let control = storyboard?.instantiateViewController(withIdentifier: "webView") as! WebViewController
+        
+            if let url = URL(string: "https://www.centennialcollege.ca") {
+                control.url = url
+            } else {
+                // The string couldn't be converted to a valid URL
+                print("Invalid URL")
+            }
+            
+            // Go to the  Package Details Screen
+            present(control, animated: true)
+        }
+        }
+    
+    
+}
+    
     
 
-}
+

@@ -21,6 +21,7 @@
 		7840B7382AFD45600019E6ED /* CustomerInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840B7372AFD45600019E6ED /* CustomerInfoViewController.swift */; };
 		7840B73A2AFD463C0019E6ED /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840B7392AFD463C0019E6ED /* PaymentViewController.swift */; };
 		7840B73C2AFD46710019E6ED /* CruiseReservationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840B73B2AFD46710019E6ED /* CruiseReservationInfoViewController.swift */; };
+		7840B73E2AFDE6F90019E6ED /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840B73D2AFDE6F90019E6ED /* WebViewController.swift */; };
 		97FA83142AF03BEC00E8B9E6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FA83132AF03BEC00E8B9E6 /* LoginViewController.swift */; };
 		97FA83162AF03BFE00E8B9E6 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FA83152AF03BFE00E8B9E6 /* RegisterViewController.swift */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,7 @@
 		7840B7372AFD45600019E6ED /* CustomerInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerInfoViewController.swift; sourceTree = "<group>"; };
 		7840B7392AFD463C0019E6ED /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		7840B73B2AFD46710019E6ED /* CruiseReservationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CruiseReservationInfoViewController.swift; sourceTree = "<group>"; };
+		7840B73D2AFDE6F90019E6ED /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		97FA83132AF03BEC00E8B9E6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		97FA83152AF03BFE00E8B9E6 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,6 +120,7 @@
 				7806A4EB2AEEBC2F000C3490 /* HomeViewController.swift */,
 				7806A4ED2AEEBC70000C3490 /* SearchViewController.swift */,
 				7806A4F12AEEBD6A000C3490 /* PackageDetailsViewController.swift */,
+				7840B73D2AFDE6F90019E6ED /* WebViewController.swift */,
 				7840B7372AFD45600019E6ED /* CustomerInfoViewController.swift */,
 				7840B7392AFD463C0019E6ED /* PaymentViewController.swift */,
 				7840B73B2AFD46710019E6ED /* CruiseReservationInfoViewController.swift */,
@@ -280,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7840B7382AFD45600019E6ED /* CustomerInfoViewController.swift in Sources */,
+				7840B73E2AFDE6F90019E6ED /* WebViewController.swift in Sources */,
 				97FA83142AF03BEC00E8B9E6 /* LoginViewController.swift in Sources */,
 				7840B73C2AFD46710019E6ED /* CruiseReservationInfoViewController.swift in Sources */,
 				7806A4BC2AEEBB28000C3490 /* AppDelegate.swift in Sources */,
