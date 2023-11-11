@@ -142,49 +142,50 @@ class CustomerInfoViewController: UIViewController {
         numberOfAdultsLabel.text = "Adults:"
         numberOfAdultsLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        let numberOfAdultsInput = UITextField()
-        numberOfAdultsInput.borderStyle = .roundedRect
-        numberOfAdultsInput.translatesAutoresizingMaskIntoConstraints = false
+        numberOfAdultsInput = UITextField()
+        numberOfAdultsInput?.borderStyle = .roundedRect
+        numberOfAdultsInput?.translatesAutoresizingMaskIntoConstraints = false
         
         let numberOfKidsLabel = UILabel()
         numberOfKidsLabel.text = "Kids:"
         numberOfKidsLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        let numberOfKidsInput = UITextField()
-        numberOfKidsInput.borderStyle = .roundedRect
-        numberOfKidsInput.translatesAutoresizingMaskIntoConstraints = false
+        numberOfKidsInput = UITextField()
+        numberOfKidsInput?.borderStyle = .roundedRect
+        numberOfKidsInput?.translatesAutoresizingMaskIntoConstraints = false
         
         // Add the labels and text fields to the view
         view.addSubview(numberOfGuestsLabel)
         view.addSubview(numberOfAdultsLabel)
-        view.addSubview(numberOfAdultsInput)
         view.addSubview(numberOfKidsLabel)
-        view.addSubview(numberOfKidsInput)
         
-        
-        // Set the labels and text fields constraints
-        NSLayoutConstraint.activate([
-            numberOfGuestsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            numberOfGuestsLabel.topAnchor.constraint(equalTo: cityCountryLabel.topAnchor, constant: 40),
-            numberOfAdultsLabel.leadingAnchor.constraint(equalTo: numberOfGuestsLabel.trailingAnchor, constant: 8),
-            numberOfAdultsInput.leadingAnchor.constraint(equalTo: numberOfAdultsLabel.trailingAnchor, constant: 8),
-            numberOfKidsLabel.leadingAnchor.constraint(equalTo: numberOfAdultsInput.trailingAnchor, constant: 8),
-            numberOfKidsInput.leadingAnchor.constraint(equalTo: numberOfKidsLabel.trailingAnchor, constant: 8),
-            numberOfKidsInput.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            numberOfAdultsLabel.centerYAnchor.constraint(equalTo: numberOfGuestsLabel.centerYAnchor),
-            numberOfAdultsInput.centerYAnchor.constraint(equalTo: numberOfAdultsLabel.centerYAnchor),
-            numberOfKidsLabel.centerYAnchor.constraint(equalTo: numberOfAdultsInput.centerYAnchor),
-            numberOfKidsInput.centerYAnchor.constraint(equalTo: numberOfKidsLabel.centerYAnchor),
-            numberOfAdultsLabel.widthAnchor.constraint(equalTo: numberOfGuestsLabel.widthAnchor, multiplier: 0.4),
-            numberOfAdultsLabel.heightAnchor.constraint(equalTo: numberOfGuestsLabel.heightAnchor),
-            numberOfAdultsInput.widthAnchor.constraint(equalTo: numberOfAdultsLabel.widthAnchor,multiplier: 0.7),
-            numberOfAdultsInput.heightAnchor.constraint(equalTo: numberOfAdultsLabel.heightAnchor),
-            numberOfKidsLabel.widthAnchor.constraint(equalTo: numberOfAdultsInput.widthAnchor),
-            numberOfKidsLabel.heightAnchor.constraint(equalTo: numberOfAdultsInput.heightAnchor),
-            numberOfKidsInput.widthAnchor.constraint(equalTo: numberOfKidsLabel.widthAnchor),
-            numberOfKidsInput.heightAnchor.constraint(equalTo: numberOfKidsLabel.heightAnchor),
-        ])
-        
+        if let numberOfAdultsInput = numberOfAdultsInput, let numberOfKidsInput = numberOfKidsInput{
+            view.addSubview(numberOfAdultsInput)
+            view.addSubview(numberOfKidsInput)
+            
+            // Set the labels and text fields constraints
+            NSLayoutConstraint.activate([
+                numberOfGuestsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+                numberOfGuestsLabel.topAnchor.constraint(equalTo: cityCountryLabel.topAnchor, constant: 40),
+                numberOfAdultsLabel.leadingAnchor.constraint(equalTo: numberOfGuestsLabel.trailingAnchor, constant: 8),
+                numberOfAdultsInput.leadingAnchor.constraint(equalTo: numberOfAdultsLabel.trailingAnchor, constant: 8),
+                numberOfKidsLabel.leadingAnchor.constraint(equalTo: numberOfAdultsInput.trailingAnchor, constant: 8),
+                numberOfKidsInput.leadingAnchor.constraint(equalTo: numberOfKidsLabel.trailingAnchor, constant: 8),
+                numberOfKidsInput.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+                numberOfAdultsLabel.centerYAnchor.constraint(equalTo: numberOfGuestsLabel.centerYAnchor),
+                numberOfAdultsInput.centerYAnchor.constraint(equalTo: numberOfAdultsLabel.centerYAnchor),
+                numberOfKidsLabel.centerYAnchor.constraint(equalTo: numberOfAdultsInput.centerYAnchor),
+                numberOfKidsInput.centerYAnchor.constraint(equalTo: numberOfKidsLabel.centerYAnchor),
+                numberOfAdultsLabel.widthAnchor.constraint(equalTo: numberOfGuestsLabel.widthAnchor, multiplier: 0.4),
+                numberOfAdultsLabel.heightAnchor.constraint(equalTo: numberOfGuestsLabel.heightAnchor),
+                numberOfAdultsInput.widthAnchor.constraint(equalTo: numberOfAdultsLabel.widthAnchor,multiplier: 0.7),
+                numberOfAdultsInput.heightAnchor.constraint(equalTo: numberOfAdultsLabel.heightAnchor),
+                numberOfKidsLabel.widthAnchor.constraint(equalTo: numberOfAdultsInput.widthAnchor),
+                numberOfKidsLabel.heightAnchor.constraint(equalTo: numberOfAdultsInput.heightAnchor),
+                numberOfKidsInput.widthAnchor.constraint(equalTo: numberOfKidsLabel.widthAnchor),
+                numberOfKidsInput.heightAnchor.constraint(equalTo: numberOfKidsLabel.heightAnchor),
+            ])
+        }
         // Create City and Country label
         let seniorGuestsLabel = UILabel()
         seniorGuestsLabel.text = "Have guests over 60?:"
@@ -251,32 +252,31 @@ class CustomerInfoViewController: UIViewController {
             hasSenior = "No"
         }
         
+        let numberOfAdultsString = numberOfAdultsInput?.text
+        let numberOfKidsString = numberOfKidsInput?.text
+        
         var numberOfAdults: Int?
         var numberOfKids: Int?
         
         // Get the text from the text field
-        if let inputAdultText = numberOfAdultsInput?.text {
-            // Attempt to convert the input text to an integer
-            if let number = Int(inputAdultText) {
+        
+        if let number = Int(numberOfAdultsString ?? "") {
                 // Use the converted integer here
                 numberOfAdults = number
             } else {
                 // Print an error message if the conversion fails
                 print("Invalid number")
             }
-        }
-        
-        // Get the text from the text field
-        if let inputKidText = numberOfAdultsInput?.text {
+
+
             // Attempt to convert the input text to an integer
-            if let number = Int(inputKidText) {
+            if let number = Int(numberOfKidsString ?? "") {
                 // Use the converted integer here
                 numberOfKids = number
             } else {
                 // Print an error message if the conversion fails
                 print("Invalid number")
             }
-        }
         
         // Pass the info to Payment Screen
         control.customerNameResult = customerName

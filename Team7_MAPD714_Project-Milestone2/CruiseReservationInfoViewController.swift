@@ -42,7 +42,6 @@ class CruiseReservationInfoViewController: UIViewController, UITableViewDataSour
     @IBOutlet weak var cruiseImage: UIImageView!
     
     // Initial dictionary list of visting places, cruise price, duration, start date and end date for table view use
-//    var reservationDetails = [ ["tag":"Customer Name:","detail":""],["tag":"Customer Address:","detail":""],["tag":"City and Country:","detail":""],["tag":"Type of Cruise:","detail":""],["tag":"Start Date:","detail":""],["tag":"Visiting Places:","detail":""],["tag":"Number of Guests:","detail":""],["tag":"Number of Nights:","detail":""],["tag":"Price per Person:","detail":""],["tag":"Total Price:","detail":""]]
     
     var reservationDetails = [["tag":"Customer Name:","detail":""],["tag":"Customer Address:","detail":""],["tag":"City and Country:","detail":""],["tag":"Type of Cruise:","detail":""],["tag":"Start Date:","detail":""],["tag":"Visiting Places:","detail": ""],["tag":"Number of Guests (Adult):","detail":""],["tag":"Number of Guests (Kids):","detail":""],["tag":"Has Senior Guest:","detail":""],["tag":"Number of Nights:","detail":""],["tag":"Price per Person:","detail":""],["tag":"Total Price:","detail":""]]
 
@@ -97,7 +96,7 @@ class CruiseReservationInfoViewController: UIViewController, UITableViewDataSour
         
         let totalPrice = cruisePrice * (numberOfAdults + numberOfKids)
         
-        let totalPriceString = String(totalPrice)
+        let totalPriceString = "$" + String(totalPrice)
         
         // Map the value of previous screen for table view use
         reservationDetails = [ ["tag":"Customer Name:","detail":customerName],["tag":"Customer Address:","detail":customerAddress],["tag":"City and Country:","detail":cityAndCountry],["tag":"Type of Cruise:","detail":cruiseType],["tag":"Start Date:","detail":cruiseStartDate],["tag":"Visiting Places:","detail": vistingPlaces],["tag":"Number of Guests (Adult):","detail":numberOfAdultsString],["tag":"Number of Guests (Kids):","detail":numberOfKidsString],["tag":"Has Senior Guest:","detail":hasSenior],["tag":"Number of Nights:","detail":cruiseDuration],["tag":"Price per Person:","detail":cruisePriceString],["tag":"Total Price:","detail":totalPriceString]]
@@ -134,7 +133,4 @@ class CruiseReservationInfoViewController: UIViewController, UITableViewDataSour
         
         return cell!
     }
-    
-    
-
 }
