@@ -66,6 +66,7 @@ class PaymentViewController: UIViewController {
         control.cruiseStartDateResult = cruiseStartDateResult
         control.cruiseEndDateResult = cruiseEndDateResult
         
+        // Got to Cruise Reservation Screen
         present(control, animated: true)
     }
     
