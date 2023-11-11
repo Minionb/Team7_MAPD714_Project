@@ -12,7 +12,7 @@ import UIKit
 
 class CustomerInfoViewController: UIViewController {
     
-    // Bring result passed from the search screen
+    // Bring result passed from the Package Details screen
     var IDResult: String?
     
     var cruiseTypeResult: String?
@@ -40,7 +40,6 @@ class CustomerInfoViewController: UIViewController {
     
     var seniorGuestSegmentedControl: UISegmentedControl?
     
-    var hasSeniorSwitch = UISwitch()
     
     // Register Components from story board
     @IBOutlet weak var icon: UIImageView!
@@ -191,14 +190,10 @@ class CustomerInfoViewController: UIViewController {
         seniorGuestsLabel.text = "Have guests over 60?:"
         seniorGuestsLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        // Set up the switch
-        hasSeniorSwitch.translatesAutoresizingMaskIntoConstraints = false
-        
+
         // Add to View
         view.addSubview(seniorGuestsLabel)
-        view.addSubview(hasSeniorSwitch)
-        
-        
+                
         // Create segmented control
         seniorGuestSegmentedControl = UISegmentedControl(items: ["Yes", "No"])
         seniorGuestSegmentedControl?.translatesAutoresizingMaskIntoConstraints = false
@@ -255,10 +250,48 @@ class CustomerInfoViewController: UIViewController {
         else{
             hasSenior = "No"
         }
-        control.customerName = customerName
-        control.customerAddress = customerAddress
-        control.cityAndCountry = cityAndCountry
-        control.hasSenior = hasSenior
+        
+        var numberOfAdults: Int?
+        var numberOfKids: Int?
+        
+        // Get the text from the text field
+        if let inputAdultText = numberOfAdultsInput?.text {
+            // Attempt to convert the input text to an integer
+            if let number = Int(inputAdultText) {
+                // Use the converted integer here
+                numberOfAdults = number
+            } else {
+                // Print an error message if the conversion fails
+                print("Invalid number")
+            }
+        }
+        
+        // Get the text from the text field
+        if let inputKidText = numberOfAdultsInput?.text {
+            // Attempt to convert the input text to an integer
+            if let number = Int(inputKidText) {
+                // Use the converted integer here
+                numberOfKids = number
+            } else {
+                // Print an error message if the conversion fails
+                print("Invalid number")
+            }
+        }
+        
+        // Pass the info to Payment Screen
+        control.customerNameResult = customerName
+        control.customerAddressResult = customerAddress
+        control.cityAndCountryResult = cityAndCountry
+        control.hasSeniorResult = hasSenior
+        control.numberOfAdultsResult = numberOfAdults
+        control.numberOfKidsResult = numberOfKids
+        control.IDResult = IDResult
+        control.cruiseTypeResult = cruiseTypeResult
+        control.vistingPlaceResult = vistingPlaceResult
+        control.cruisePriceResult = cruisePriceResult
+        control.cruiseDurationResult = cruiseDurationResult
+        control.cruiseStartDateResult = cruiseStartDateResult
+        control.cruiseEndDateResult = cruiseEndDateResult
         
         present(control, animated: true)
         }
