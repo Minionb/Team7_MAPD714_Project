@@ -44,26 +44,6 @@ class PaymentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Create a label
-                let label = UILabel()
-                
-                // Set the text
-                label.text = customerNameResult
-                
-                // Set the font
-                label.font = UIFont.systemFont(ofSize: 18)
-                
-                // Set the text color
-                label.textColor = UIColor.black
-                
-                // Set the label's position and size using Auto Layout
-                label.translatesAutoresizingMaskIntoConstraints = false
-                view.addSubview(label)
-                NSLayoutConstraint.activate([
-                    label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                    label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-                ])
     }
     
     
@@ -76,6 +56,8 @@ class PaymentViewController: UIViewController {
         control.customerAddressResult = customerAddressResult
         control.cityAndCountryResult = cityAndCountryResult
         control.hasSeniorResult = hasSeniorResult
+        control.numberOfAdultsResult = numberOfAdultsResult
+        control.numberOfKidsResult = numberOfKidsResult
         control.IDResult = IDResult
         control.cruiseTypeResult = cruiseTypeResult
         control.vistingPlaceResult = vistingPlaceResult
