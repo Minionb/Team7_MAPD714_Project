@@ -186,7 +186,7 @@ class CustomerInfoViewController: UIViewController {
                 numberOfKidsInput.heightAnchor.constraint(equalTo: numberOfKidsLabel.heightAnchor),
             ])
         }
-        // Create City and Country label
+        // Create Has Senior Label label
         let seniorGuestsLabel = UILabel()
         seniorGuestsLabel.text = "Have guests over 60?:"
         seniorGuestsLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -236,21 +236,19 @@ class CustomerInfoViewController: UIViewController {
         // Add an action to the button
         nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
     }
+    
     @objc func nextButtonClicked() {
-            // Action to perform when the button is tapped
+        
+        var missingFields: [String] = []
+
+        
+        // Action to perform when the button is tapped
         let control = storyboard?.instantiateViewController(withIdentifier: "payment") as! PaymentViewController
         
         let customerName = nameInput?.text
         let customerAddress = addressInput?.text
         let cityAndCountry = cityCountryInput?.text
-        let seniorGuestSegmentedControlVaule = seniorGuestSegmentedControl?.selectedSegmentIndex
-        var hasSenior = "No"
-        if (seniorGuestSegmentedControlVaule == 0){
-            hasSenior = "Yes"
-        }
-        else{
-            hasSenior = "No"
-        }
+
         
         let numberOfAdultsString = numberOfAdultsInput?.text
         let numberOfKidsString = numberOfKidsInput?.text
@@ -258,14 +256,24 @@ class CustomerInfoViewController: UIViewController {
         var numberOfAdults: Int?
         var numberOfKids: Int?
         
-        // Get the text from the text field
+        if (customerName == ""){
+            missingFields.append("Customer Name")
+        }
+        
+        if (customerAddress == ""){
+            missingFields.append("Customer Address")
+        }
+        
+        if (cityAndCountry == ""){
+            missingFields.append("City and Country")
+        }
+        
         
         if let number = Int(numberOfAdultsString ?? "") {
                 // Use the converted integer here
                 numberOfAdults = number
             } else {
-                // Print an error message if the conversion fails
-                print("Invalid number")
+                missingFields.append("Number of Adults")
             }
 
 
@@ -274,26 +282,56 @@ class CustomerInfoViewController: UIViewController {
                 // Use the converted integer here
                 numberOfKids = number
             } else {
-                // Print an error message if the conversion fails
-                print("Invalid number")
+                missingFields.append("Number of Kids")
             }
         
-        // Pass the info to Payment Screen
-        control.customerNameResult = customerName
-        control.customerAddressResult = customerAddress
-        control.cityAndCountryResult = cityAndCountry
-        control.hasSeniorResult = hasSenior
-        control.numberOfAdultsResult = numberOfAdults
-        control.numberOfKidsResult = numberOfKids
-        control.IDResult = IDResult
-        control.cruiseTypeResult = cruiseTypeResult
-        control.vistingPlaceResult = vistingPlaceResult
-        control.cruisePriceResult = cruisePriceResult
-        control.cruiseDurationResult = cruiseDurationResult
-        control.cruiseStartDateResult = cruiseStartDateResult
-        control.cruiseEndDateResult = cruiseEndDateResult
+        let seniorGuestSegmentedControlVaule = seniorGuestSegmentedControl?.selectedSegmentIndex
+        var hasSenior = "No"
+        if (seniorGuestSegmentedControlVaule == 0){
+            hasSenior = "Yes"
+        }
+        else if (seniorGuestSegmentedControlVaule == 1){
+            hasSenior = "No"
+        }
+        else{
+            missingFields.append("Have guests over 60?")
+        }
         
-        present(control, animated: true)
+        if (missingFields.count == 0){
+            // Pass the info to Payment Screen
+            control.customerNameResult = customerName
+            control.customerAddressResult = customerAddress
+            control.cityAndCountryResult = cityAndCountry
+            control.hasSeniorResult = hasSenior
+            control.numberOfAdultsResult = numberOfAdults
+            control.numberOfKidsResult = numberOfKids
+            control.IDResult = IDResult
+            control.cruiseTypeResult = cruiseTypeResult
+            control.vistingPlaceResult = vistingPlaceResult
+            control.cruisePriceResult = cruisePriceResult
+            control.cruiseDurationResult = cruiseDurationResult
+            control.cruiseStartDateResult = cruiseStartDateResult
+            control.cruiseEndDateResult = cruiseEndDateResult
+            
+            // Go to Payment Screen
+            present(control, animated: true)
+        }
+        else{
+            let missFieldsString = missingFields.joined(separator: ", ")
+            let statement = "Invalid or Missing of the following fields: " + missFieldsString + ". Please fill in the correct information."
+            // Create the alert controller
+            let alertController = UIAlertController(title: "Invalid or Missing Fields", message: statement, preferredStyle: .alert)
+
+            // Create an action for the alert
+            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            }
+
+            // Add the action to the alert controller
+            alertController.addAction(okAction)
+
+            // Present the alert controller
+            present(alertController, animated: true, completion: nil)
+        }
         }
     
 }

@@ -149,9 +149,11 @@ class PaymentViewController: UIViewController {
             control.cruiseDurationResult = cruiseDurationResult
             control.cruiseStartDateResult = cruiseStartDateResult
             control.cruiseEndDateResult = cruiseEndDateResult
-            
+
+            // Got to Cruise Reservation Screen
             present(control, animated: true)
         }
+
     }
     
 

@@ -39,6 +39,8 @@ class PackageDetailsViewController: UIViewController,UITableViewDataSource, UITa
     
     // Initial dictionary list of visting places, cruise price, duration, start date and end date for table view use
     var cruiseDetails = [ ["tag":"Visting Places:","detail":""],["tag":"Cruise Price:","detail":""],["tag":"Cruise Duration","detail":""],["tag":"Cruise Start Date","detail":""],["tag":"Cruise End Date","detail":""]]
+    
+    let webURLs = ["Bahamas1": "https://www.nassauparadiseisland.com", "Caribbean1": "https://travel.usnews.com/Puerto_Plata_Dominican_Republic/", "Cuba1": "https://www.visitorlando.com/","Sampler1": "https://www.visittampabay.com/","Star1": "https://www.tripadvisor.ca/Tourism-g660694-Penang_Island_Penang-Vacations.html"]
 
 
     override func viewDidLoad() {
@@ -169,31 +171,32 @@ class PackageDetailsViewController: UIViewController,UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //tableView.deselectRow(at: indexPath, animated: true)
+
         let rowData = cruiseDetails[indexPath.row]
         
         let tag = String(describing: rowData["tag"] ?? "")
-        
-        print(tag)
         
         if indexPath.row == 0 {
             
             // Define controller to bring to the Package Details Screen
             let control = storyboard?.instantiateViewController(withIdentifier: "webView") as! WebViewController
         
-            if let url = URL(string: "https://www.centennialcollege.ca") {
+            let key = IDResult
+            
+            guard let webURL = webURLs[key ?? ""] else { return }
+            
+            
+            if let url = URL(string: webURL) {
                 control.url = url
             } else {
                 // The string couldn't be converted to a valid URL
                 print("Invalid URL")
             }
             
-            // Go to the  Package Details Screen
+            // Go to the Customer Info Screen
             present(control, animated: true)
         }
-        }
-    
-    
+    }
 }
     
     
