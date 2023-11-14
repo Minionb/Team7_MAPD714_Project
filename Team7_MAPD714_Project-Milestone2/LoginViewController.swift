@@ -17,6 +17,10 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var errorLabelText: UILabel!
     
+    // CustomerInfo database test code
+    var db = CustomerInfoDBManager()
+    var custs = Array<CustomerInfo>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         errorLabelText.textColor = .white
@@ -29,14 +33,24 @@ class LoginViewController: UIViewController {
         }
         else {
             errorLabelText.textColor = .white
+            
+            // CustomerInfo database test code
+            custs = db.read()
+            if (emailTextField.text == custs[0].cemail && passwordTextField.text == custs[0].cpassword) {
+                let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
+                
+                present(control, animated: true)
+            }
+            else {
+                errorLabelText.textColor = .systemRed
+            }
+            
 //            let loginAlert = UIAlertController(title: "Login Successful", message: "", preferredStyle: .alert)
 //            let continueAction = UIAlertAction(title: "Continue", style: .cancel, handler: nil)
 //            loginAlert.addAction(continueAction)
 //            self.present(loginAlert, animated: true, completion: nil)
-//            
-            let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
+     
             
-            present(control, animated: true)
         }
     }
     

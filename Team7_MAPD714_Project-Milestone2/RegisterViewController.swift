@@ -20,10 +20,17 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var addressTextField: UITextField!
     @IBOutlet weak var errorTextLabel: UILabel!
     
+    // CustomerInfo database test code
+    var db = CustomerInfoDBManager()
+    var custs = Array<CustomerInfo>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         errorTextLabel.textColor = .white
-        // Do any additional setup after loading the view.
+        
+        // CustomerInfo database test code
+        db.insert(cid: 1, cfirstname: "Cole", clastname: "Anam", cemail: "coleanam@gmail.com", cpassword: "admin", cage: 23, caddress: "temp")
+        custs = db.read()
     }
     
     @IBAction func signUpButtonOnClicked(_ sender: Any) {
@@ -32,6 +39,17 @@ class RegisterViewController: UIViewController {
         }
         else {
             errorTextLabel.textColor = .white
+            
+            
+            // CustomerInfo database test code
+            let cfirstname = firstNameTextField.text!
+            let clastname = lastNameTextField.text!
+            let cemail = emailTextField.text!
+            let cpassword = passwordTextField.text!
+            guard let cage = Int(ageTextField.text!) else { return }
+            let caddress = addressTextField.text!
+            db.insert(cid: 2, cfirstname: cfirstname, clastname: clastname, cemail: cemail, cpassword: cpassword, cage: cage, caddress: caddress)
+            custs = db.read()
             
             let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
             
