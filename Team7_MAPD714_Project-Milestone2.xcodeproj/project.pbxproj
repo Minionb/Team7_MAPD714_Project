@@ -22,6 +22,9 @@
 		7840B73A2AFD463C0019E6ED /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840B7392AFD463C0019E6ED /* PaymentViewController.swift */; };
 		7840B73C2AFD46710019E6ED /* CruiseReservationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840B73B2AFD46710019E6ED /* CruiseReservationInfoViewController.swift */; };
 		7840B73E2AFDE6F90019E6ED /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7840B73D2AFDE6F90019E6ED /* WebViewController.swift */; };
+		9721C1272B03EE2200D60113 /* CustomerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9721C1262B03EE2200D60113 /* CustomerInfo.swift */; };
+		9721C1292B03F03A00D60113 /* CustomerInfoDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9721C1282B03F03A00D60113 /* CustomerInfoDBManager.swift */; };
+		9721C12C2B03F09500D60113 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9721C12B2B03F09500D60113 /* libsqlite3.tbd */; };
 		97FA83142AF03BEC00E8B9E6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FA83132AF03BEC00E8B9E6 /* LoginViewController.swift */; };
 		97FA83162AF03BFE00E8B9E6 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FA83152AF03BFE00E8B9E6 /* RegisterViewController.swift */; };
 /* End PBXBuildFile section */
@@ -63,6 +66,9 @@
 		7840B7392AFD463C0019E6ED /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		7840B73B2AFD46710019E6ED /* CruiseReservationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CruiseReservationInfoViewController.swift; sourceTree = "<group>"; };
 		7840B73D2AFDE6F90019E6ED /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		9721C1262B03EE2200D60113 /* CustomerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerInfo.swift; sourceTree = "<group>"; };
+		9721C1282B03F03A00D60113 /* CustomerInfoDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerInfoDBManager.swift; sourceTree = "<group>"; };
+		9721C12B2B03F09500D60113 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		97FA83132AF03BEC00E8B9E6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		97FA83152AF03BFE00E8B9E6 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9721C12C2B03F09500D60113 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +106,7 @@
 				7806A4D12AEEBB2C000C3490 /* Team7_MAPD714_Project-Milestone2Tests */,
 				7806A4DB2AEEBB2C000C3490 /* Team7_MAPD714_Project-Milestone2UITests */,
 				7806A4B92AEEBB28000C3490 /* Products */,
+				9721C12A2B03F09500D60113 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -126,6 +134,8 @@
 				7840B73B2AFD46710019E6ED /* CruiseReservationInfoViewController.swift */,
 				97FA83132AF03BEC00E8B9E6 /* LoginViewController.swift */,
 				97FA83152AF03BFE00E8B9E6 /* RegisterViewController.swift */,
+				9721C1262B03EE2200D60113 /* CustomerInfo.swift */,
+				9721C1282B03F03A00D60113 /* CustomerInfoDBManager.swift */,
 				7806A4C12AEEBB28000C3490 /* Main.storyboard */,
 				7806A4C42AEEBB2C000C3490 /* Assets.xcassets */,
 				7806A4C62AEEBB2C000C3490 /* LaunchScreen.storyboard */,
@@ -149,6 +159,14 @@
 				7806A4DE2AEEBB2C000C3490 /* Team7_MAPD714_Project_Milestone2UITestsLaunchTests.swift */,
 			);
 			path = "Team7_MAPD714_Project-Milestone2UITests";
+			sourceTree = "<group>";
+		};
+		9721C12A2B03F09500D60113 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9721C12B2B03F09500D60113 /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,7 +306,9 @@
 				7840B73C2AFD46710019E6ED /* CruiseReservationInfoViewController.swift in Sources */,
 				7806A4BC2AEEBB28000C3490 /* AppDelegate.swift in Sources */,
 				97FA83162AF03BFE00E8B9E6 /* RegisterViewController.swift in Sources */,
+				9721C1292B03F03A00D60113 /* CustomerInfoDBManager.swift in Sources */,
 				7806A4BE2AEEBB28000C3490 /* SceneDelegate.swift in Sources */,
+				9721C1272B03EE2200D60113 /* CustomerInfo.swift in Sources */,
 				7806A4EE2AEEBC70000C3490 /* SearchViewController.swift in Sources */,
 				7806A4F22AEEBD6A000C3490 /* PackageDetailsViewController.swift in Sources */,
 				7840B73A2AFD463C0019E6ED /* PaymentViewController.swift in Sources */,
