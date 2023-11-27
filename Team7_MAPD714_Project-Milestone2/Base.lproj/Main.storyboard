@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xmX-MY-sPZ">
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -504,7 +506,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ca9-ha-WwZ">
-                                <rect key="frame" x="90" y="59" width="325" height="70"/>
+                                <rect key="frame" x="90" y="59" width="288" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="zjk-bP-qyo"/>
                                 </constraints>
@@ -950,6 +952,91 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bMU-Nv-DxN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2218" y="4"/>
+        </scene>
+        <!--Customer Profile View Controller-->
+        <scene sceneID="7Jg-sQ-iG4">
+            <objects>
+                <viewController storyboardIdentifier="profileView" id="UZZ-p0-9Js" customClass="CustomerProfileViewController" customModule="Team7_MAPD714_Project_Milestone2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FgN-D8-0fe">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0MH-Fw-tpC">
+                                <rect key="frame" x="20" y="600" width="390" height="298"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="UZZ-p0-9Js" id="C8A-J3-Yke"/>
+                                    <outlet property="delegate" destination="UZZ-p0-9Js" id="Qif-k3-Ktc"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Booking History:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fR7-Yj-yA3">
+                                <rect key="frame" x="20" y="571" width="126" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="bT2-2g-x6i"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dgI-0h-gF2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="807.90697674418607" y="1354.5064377682404"/>
+        </scene>
+        <!--Booking Details View Controller-->
+        <scene sceneID="ZZ2-4N-Kui">
+            <objects>
+                <viewController storyboardIdentifier="bookingPopUp" id="Uzh-fa-3ZP" customClass="BookingDetailsViewController" customModule="Team7_MAPD714_Project_Milestone2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ArU-On-4Gs">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tAR-P2-WCa">
+                                <rect key="frame" x="40" y="139" width="350" height="679"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking Details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S5h-Tn-vAT">
+                                        <rect key="frame" x="90" y="33" width="170" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="hx9-Yi-95b">
+                                        <rect key="frame" x="20" y="77" width="310" height="542"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Uzh-fa-3ZP" id="PNY-VL-CL3"/>
+                                            <outlet property="delegate" destination="Uzh-fa-3ZP" id="LFo-2a-wis"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="hx9-Yi-95b" firstAttribute="leading" secondItem="tAR-P2-WCa" secondAttribute="leading" constant="20" id="MA4-mC-WyO"/>
+                                    <constraint firstAttribute="trailing" secondItem="S5h-Tn-vAT" secondAttribute="trailing" constant="90" id="ReR-jF-nVE"/>
+                                    <constraint firstItem="hx9-Yi-95b" firstAttribute="top" secondItem="S5h-Tn-vAT" secondAttribute="bottom" constant="20" id="eJR-dy-fgv"/>
+                                    <constraint firstAttribute="trailing" secondItem="hx9-Yi-95b" secondAttribute="trailing" constant="20" symbolic="YES" id="fEj-ws-xvL"/>
+                                    <constraint firstItem="S5h-Tn-vAT" firstAttribute="top" secondItem="tAR-P2-WCa" secondAttribute="top" constant="33" id="igi-n9-836"/>
+                                    <constraint firstAttribute="bottom" secondItem="hx9-Yi-95b" secondAttribute="bottom" constant="60" id="myr-h6-UKy"/>
+                                    <constraint firstItem="S5h-Tn-vAT" firstAttribute="leading" secondItem="tAR-P2-WCa" secondAttribute="leading" constant="90" id="o3l-zA-aAB"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4mD-np-1uQ"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="tAR-P2-WCa" firstAttribute="leading" secondItem="4mD-np-1uQ" secondAttribute="leading" constant="40" id="1wg-FQ-VOT"/>
+                            <constraint firstItem="4mD-np-1uQ" firstAttribute="trailing" secondItem="tAR-P2-WCa" secondAttribute="trailing" constant="40" id="Cm1-fy-XYf"/>
+                            <constraint firstItem="tAR-P2-WCa" firstAttribute="top" secondItem="4mD-np-1uQ" secondAttribute="top" constant="80" id="jot-XC-qmK"/>
+                            <constraint firstItem="4mD-np-1uQ" firstAttribute="bottom" secondItem="tAR-P2-WCa" secondAttribute="bottom" constant="80" id="pRo-j0-JKS"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zmf-3B-Ixz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1523.7209302325582" y="1354.5064377682404"/>
         </scene>
     </scenes>
     <resources>

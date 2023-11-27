@@ -9,6 +9,7 @@
 //  Description: Register Screen
 
 import UIKit
+import SQLite3
 
 class RegisterViewController: UIViewController {
 
@@ -62,7 +63,8 @@ class RegisterViewController: UIViewController {
             db.insert(cid: 2, cfirstname: cfirstname, clastname: clastname, cemail: cemail, cpassword: cpassword, cage: cage, caddress: caddress, ccity: ccity, ccountry: ccountry, ctelephone: ctelephone)
             custs = db.read()
             
-            let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
+//            let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
+            let control = storyboard?.instantiateViewController(withIdentifier: "profileView") as! CustomerProfileViewController
             
             present(control, animated: true)
         }

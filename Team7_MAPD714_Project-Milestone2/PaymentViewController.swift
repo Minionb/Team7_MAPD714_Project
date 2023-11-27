@@ -9,11 +9,15 @@
 //  Description: Payment Screen
 
 import UIKit
+import SQLite3
 
 class PaymentViewController: UIViewController {
     
     
     @IBOutlet weak var Confirm: UIButton!
+    
+    // Pass from Login Screen
+    var cid = 3
     
     // Bring result passed from the Customer Info screen
     var customerNameResult: String?
@@ -55,6 +59,10 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var payTypeLabel: UILabel!
     
     @IBOutlet weak var emptyFieldMessageLabel: UILabel!
+    
+    
+    var db = BookingInfoDBManager()
+    var bookings = Array<BookingInfo>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,6 +140,29 @@ class PaymentViewController: UIViewController {
             emptyFieldMessageLabel.textColor = .systemRed
         }
         else {
+            // Insert Booking Details to DB
+            var nightNum = 0
+            var cruisePrice = 0
+            
+            if let unwrappednNightNum = Int(cruiseDurationResult ?? "") {
+                nightNum = unwrappednNightNum
+            }
+            
+            if let unwrappedCruisePrice = Int(cruisePriceResult ?? "") {
+                cruisePrice = unwrappedCruisePrice
+            }
+            
+            let numberOfAdults = (numberOfAdultsResult ?? 0)
+            
+            let numberOfKids = (numberOfKidsResult ?? 0)
+            
+            let totalPrice = cruisePrice * (numberOfAdults + numberOfKids)
+
+            db.insert(cid: cid, bcruiseType: cruiseTypeResult ?? "", bcruiseStartDate: cruiseStartDateResult ?? "",bcruiseEndDate: cruiseEndDateResult ?? "", bvisitingPlaces: vistingPlaceResult ?? "", badultNum: numberOfAdultsResult ?? 0, bkidNum: numberOfKidsResult ?? 0, bhasSenior: hasSeniorResult ?? "", bnightNum: nightNum, bcruisePrice: cruisePrice, btotalPrice: totalPrice)
+            
+            bookings = db.read()
+            print(bookings)
+            
             emptyFieldMessageLabel.textColor = .white
             
             // Pass the info to Cruise Reservation Info Screen

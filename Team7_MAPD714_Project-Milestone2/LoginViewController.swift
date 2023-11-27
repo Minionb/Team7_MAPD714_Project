@@ -47,6 +47,7 @@ class LoginViewController: UIViewController {
             var passwordString = passwordTextField.text ?? ""
             
             // CustomerInfo database test code
+
 //            custs = db.read()
 //            if (emailTextField.text == custs[0].cemail && passwordTextField.text == custs[0].cpassword) {
 //                let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
@@ -81,6 +82,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func guestButtonOnClicked(_ sender: Any) {
         let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
+//        let control = storyboard?.instantiateViewController(withIdentifier: "profileView") as! CustomerProfileViewController
         
         present(control, animated: true)
     }
