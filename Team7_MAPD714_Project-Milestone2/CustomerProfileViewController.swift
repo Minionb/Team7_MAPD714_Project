@@ -1,9 +1,12 @@
 //
-//  CustomerProfileViewController.swift
+//  RegisterViewController.swift
 //  Team7_MAPD714_Project-Milestone2
 //
-//  Created by Hilary Ng on 26/11/2023.
-//
+//  Team 7
+//  Milestone 2
+//  Team members' names and student numbers: Pui Yee Ng (301366105), Cole Anam (301009188)
+//  Submission date: 11/27/2023
+//  Description: Customer Profile Screen
 
 import UIKit
 import SQLite3
@@ -12,20 +15,58 @@ class CustomerProfileViewController: UIViewController, UITableViewDataSource, UI
     
     // Pass from Login Screen
     var cid = 3
+    var customerEmail: String = ""
     
     var db = BookingInfoDBManager()
     var bookings = Array<BookingInfo>()
   
     
     var bookingDetails = [ ["tag":"Booking ID:","detail":""], ["tag":"Cruise Type:","detail":""], ["tag":"Cruise Start Date","detail":""], ["tag":"Visting Places:","detail":""], ["tag":"Number of  Adults:","detail":""], ["tag":"Number of Kids","detail":""], ["tag":"Cruise Price:","detail":""], ["tag":"Has Senior:","detail":""], ["tag":"Cruise Duration","detail":""], ["tag":"Cruise End Date","detail":""]]
-
+    
+    @IBOutlet weak var tempFullNameLabel: UILabel!
+    @IBOutlet weak var tempAddressLabel: UILabel!
+    @IBOutlet weak var tempCandCLabel: UILabel!
+    @IBOutlet weak var tempPhoneNumLabel: UILabel!
+    @IBOutlet weak var tempEmailLabel: UILabel!
+    @IBOutlet weak var tempPasswordLabel: UILabel!
+    
+    // CustomerInfo database test code
+    var dbCusts = CustomerInfoDBManager()
+    var customer: CustomerInfo?
+    //var custs = Array<CustomerInfo>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        customer = dbCusts.getCustomerByEmail(cemail: customerEmail)!
+        
+        tempFullNameLabel.text = customer!.cfirstname + " " + customer!.clastname
+        
+        tempAddressLabel.text = customer!.caddress
+        
+        tempCandCLabel.text = customer!.ccity + ", " + customer!.ccountry
+        
+        tempPhoneNumLabel.text = customer!.ctelephone
+        
+        tempEmailLabel.text = customer!.cemail
+        
+        tempPasswordLabel.text = customer!.cpassword
         
         bookings = db.selectBookingsByCustID(cid:cid)
         print(bookings)
     }
-
+    
+    
+    @IBAction func editProfileButttonClicked(_ sender: Any) {
+        
+        let control = storyboard?.instantiateViewController(withIdentifier: "profileEdit") as! EditCustomerProfileController
+        
+        control.customerEmail = customer!.cemail
+        control.customerPassword = customer!.cpassword
+        
+        present(control, animated: true)
+    }
+    
     let customerProfileIdentifier = "customerProfileIdentifier"
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
