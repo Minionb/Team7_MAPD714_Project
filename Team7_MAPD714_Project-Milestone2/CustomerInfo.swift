@@ -16,8 +16,11 @@ class CustomerInfo{
     var cpassword: String
     var cage: Int
     var caddress: String
+    var ccity: String
+    var ccountry: String
+    var ctelephone: String
     
-    init(cid: Int, cfirstname: String, clastname: String, cemail: String, cpassword: String, cage: Int, caddress: String) {
+    init(cid: Int, cfirstname: String, clastname: String, cemail: String, cpassword: String, cage: Int, caddress: String, ccity: String, ccountry: String, ctelephone: String) {
         self.cid = cid
         self.cfirstname = cfirstname
         self.clastname = clastname
@@ -25,5 +28,10 @@ class CustomerInfo{
         self.cpassword = cpassword
         self.cage = cage
         self.caddress = caddress
+        self.ccity = ccity
+        self.ccountry = ccountry
+        self.ctelephone = ctelephone
     }
 }
+
+
