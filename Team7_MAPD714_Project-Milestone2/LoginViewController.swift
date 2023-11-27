@@ -27,6 +27,15 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    func login(cemail: String, cpassword: String) -> Bool {
+        if let customer = CustomerInfoDBManager().getCustomer(cemail: cemail, cpassword: cpassword) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
     @IBAction func signinButtonOnClicked(_ sender: Any) {
         if (emailTextField.text?.isEmpty == true || passwordTextField.text?.isEmpty == true) {
             errorLabelText.textColor = .systemRed
@@ -34,17 +43,33 @@ class LoginViewController: UIViewController {
         else {
             errorLabelText.textColor = .white
             
+            var emailString = emailTextField.text ?? ""
+            var passwordString = passwordTextField.text ?? ""
+            
             // CustomerInfo database test code
-            custs = db.read()
-            if (emailTextField.text == custs[0].cemail && passwordTextField.text == custs[0].cpassword) {
+
+//            custs = db.read()
+//            if (emailTextField.text == custs[0].cemail && passwordTextField.text == custs[0].cpassword) {
 //                let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
-                let control = storyboard?.instantiateViewController(withIdentifier: "profileView") as! CustomerProfileViewController
+//                
+//                present(control, animated: true)
+//            }
+//            else {
+//                errorLabelText.textColor = .systemRed
+//            }
+            
+            
+            
+            if login(cemail: emailString, cpassword: passwordString) {
+                let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
                 
                 present(control, animated: true)
             }
             else {
                 errorLabelText.textColor = .systemRed
             }
+            
+            
             
 //            let loginAlert = UIAlertController(title: "Login Successful", message: "", preferredStyle: .alert)
 //            let continueAction = UIAlertAction(title: "Continue", style: .cancel, handler: nil)
