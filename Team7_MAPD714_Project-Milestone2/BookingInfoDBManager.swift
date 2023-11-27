@@ -1,9 +1,12 @@
 //
-//  BookingInfoDBManager.swift
+//  RegisterViewController.swift
 //  Team7_MAPD714_Project-Milestone2
 //
-//  Created by Hilary Ng on 15/11/2023.
-//
+//  Team 7
+//  Milestone 2
+//  Team members' names and student numbers: Pui Yee Ng (301366105), Cole Anam (301009188)
+//  Submission date: 11/27/2023
+//  Description: Booking Info Database Manager
 
 import Foundation
 import SQLite3
