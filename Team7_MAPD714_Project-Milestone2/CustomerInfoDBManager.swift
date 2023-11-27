@@ -1,9 +1,12 @@
 //
-//  CustomerInfoDBManager.swift
+//  RegisterViewController.swift
 //  Team7_MAPD714_Project-Milestone2
 //
-//  Created by Cole Anam on 14/11/23.
-//
+//  Team 7
+//  Milestone 2
+//  Team members' names and student numbers: Pui Yee Ng (301366105), Cole Anam (301009188)
+//  Submission date: 11/27/2023
+//  Description: Customer Info Database
 
 import Foundation
 import SQLite3
@@ -81,6 +84,13 @@ class CustomerInfoDBManager {
                 sqlite3_column_text(getStatement, 9)))
                 
                 let customerInfo = CustomerInfo(cid: Int(cid), cfirstname: cfirstname, clastname: clastname, cemail: cemail, cpassword: cpassword, cage: Int(cage), caddress: caddress, ccity: ccity, ccountry: ccountry, ctelephone: ctelephone)
+                
+                
+                if sqlite3_step(getStatement) != SQLITE_DONE {
+                    let errorMessage = String(cString: sqlite3_errmsg(db))
+                    print("Error getting customerinfo: \(errorMessage)")
+                }
+                
                 sqlite3_finalize(getStatement)
                 return customerInfo
             }
@@ -88,6 +98,64 @@ class CustomerInfoDBManager {
         
         sqlite3_finalize(getStatement)
         return nil
+    }
+    
+    func getCustomerByEmail(cemail: String) -> CustomerInfo? {
+        var getStatement: OpaquePointer?
+        
+        let getStatementString = "SELECT * FROM CustomerInfo WHERE cemail = ?"
+        
+        if sqlite3_prepare_v2(db, getStatementString, -1, &getStatement, nil) == SQLITE_OK {
+            sqlite3_bind_text(getStatement, 1, (cemail as NSString).utf8String, -1, nil)
+            
+            if sqlite3_step(getStatement) == SQLITE_ROW {
+                let cid = sqlite3_column_int(getStatement, 0)
+                let cfirstname = String(describing: String(cString: sqlite3_column_text(getStatement, 1)))
+                let clastname = String(describing: String(cString: sqlite3_column_text(getStatement, 2)))
+                let cemail = String(describing: String(cString: sqlite3_column_text(getStatement, 3)))
+                let cpassword = String(describing: String(cString: sqlite3_column_text(getStatement, 4)))
+                let cage = sqlite3_column_int(getStatement, 5)
+                let caddress = String(describing: String(cString: sqlite3_column_text(getStatement, 6)))
+                let ccity = String(describing: String(cString: sqlite3_column_text(getStatement, 7)))
+                let ccountry = String(describing: String(cString: sqlite3_column_text(getStatement, 8)))
+                let ctelephone = String(describing: String(cString: sqlite3_column_text(getStatement, 9)))
+                
+                let customerInfo = CustomerInfo(cid: Int(cid), cfirstname: cfirstname, clastname: clastname, cemail: cemail, cpassword: cpassword, cage: Int(cage), caddress: caddress, ccity: ccity, ccountry: ccountry, ctelephone: ctelephone)
+                
+                
+//                if sqlite3_step(getStatement) != SQLITE_DONE {
+//                    let errorMessage = String(cString: sqlite3_errmsg(db))
+//                    print("Error getting customerinfo: \(errorMessage)")
+//                }
+                
+                sqlite3_finalize(getStatement)
+                return customerInfo
+            }
+        }
+        
+        sqlite3_finalize(getStatement)
+        return nil
+    }
+    
+    func updateCustomer(customerInfo: CustomerInfo) {
+        var updateStatement: OpaquePointer?
+        
+        let updateStatementString = "UPDATE CustomerInfo SET cpassword = ?, caddress = ?, ccity = ?, ccountry = ?, ctelephone = ? WHERE cemail = ?"
+        
+        if sqlite3_prepare_v2(db, updateStatementString, -1, &updateStatement, nil) == SQLITE_OK {
+            sqlite3_bind_text(updateStatement, 1, (customerInfo.cpassword as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(updateStatement, 2, (customerInfo.caddress as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(updateStatement, 3, (customerInfo.ccity as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(updateStatement, 4, (customerInfo.ccountry as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(updateStatement, 5, (customerInfo.ctelephone as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(updateStatement, 6, (customerInfo.cemail as NSString).utf8String, -1, nil)
+            
+            if sqlite3_step(updateStatement) != SQLITE_DONE {
+                let errorMessage = String(cString: sqlite3_errmsg(db))
+                print("Error updating customerinfo: \(errorMessage)")
+            }
+        }
+        sqlite3_finalize(updateStatement)
     }
     
     func deleteAllCustomers() {

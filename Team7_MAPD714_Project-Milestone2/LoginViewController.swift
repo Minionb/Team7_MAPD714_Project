@@ -24,11 +24,11 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         errorLabelText.textColor = .white
-        // Do any additional setup after loading the view.
+        passwordTextField.isSecureTextEntry = true
     }
     
     func login(cemail: String, cpassword: String) -> Bool {
-        if let customer = CustomerInfoDBManager().getCustomer(cemail: cemail, cpassword: cpassword) {
+        if let customer = db.getCustomer(cemail: cemail, cpassword: cpassword) {
             return true
         }
         else {
@@ -43,8 +43,8 @@ class LoginViewController: UIViewController {
         else {
             errorLabelText.textColor = .white
             
-            var emailString = emailTextField.text ?? ""
-            var passwordString = passwordTextField.text ?? ""
+            let emailString = emailTextField.text ?? ""
+            let passwordString = passwordTextField.text ?? ""
             
             // CustomerInfo database test code
 
@@ -61,7 +61,9 @@ class LoginViewController: UIViewController {
             
             
             if login(cemail: emailString, cpassword: passwordString) {
-                let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
+                let control = storyboard?.instantiateViewController(withIdentifier: "profileView") as! CustomerProfileViewController
+                
+                control.customerEmail = emailString
                 
                 present(control, animated: true)
             }
