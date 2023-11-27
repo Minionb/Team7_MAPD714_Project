@@ -19,6 +19,9 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var ageTextField: UITextField!
     @IBOutlet weak var addressTextField: UITextField!
     @IBOutlet weak var errorTextLabel: UILabel!
+    @IBOutlet weak var cityTextField: UITextField!
+    @IBOutlet weak var countryTextField: UITextField!
+    @IBOutlet weak var telephoneTextField: UITextField!
     
     // CustomerInfo database test code
     var db = CustomerInfoDBManager()
@@ -28,13 +31,18 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         errorTextLabel.textColor = .white
         
+        //db.deleteAllCustomers()
+        
         // CustomerInfo database test code
-        db.insert(cid: 1, cfirstname: "Cole", clastname: "Anam", cemail: "coleanam@gmail.com", cpassword: "admin", cage: 23, caddress: "temp")
+        db.insert(cid: 1, cfirstname: "Cole", clastname: "Anam", cemail: "coleanam@gmail.com", cpassword: "admin", cage: 23, caddress: "temp", ccity: "Toronto", ccountry: "Canada", ctelephone: "123-456-7890")
         custs = db.read()
     }
     
     @IBAction func signUpButtonOnClicked(_ sender: Any) {
-        if (firstNameTextField.text?.isEmpty == true || lastNameTextField.text?.isEmpty == true || emailTextField.text?.isEmpty == true || passwordTextField.text?.isEmpty == true || ageTextField.text?.isEmpty == true || addressTextField.text?.isEmpty == true) {
+        if (firstNameTextField.text?.isEmpty == true || lastNameTextField.text?.isEmpty == true || emailTextField.text?.isEmpty == true || passwordTextField.text?.isEmpty == true || ageTextField.text?.isEmpty == true || addressTextField.text?.isEmpty == true ||
+            cityTextField.text?.isEmpty == true ||
+            countryTextField.text?.isEmpty == true ||
+            telephoneTextField.text?.isEmpty == true) {
             errorTextLabel.textColor = .systemRed
         }
         else {
@@ -48,7 +56,10 @@ class RegisterViewController: UIViewController {
             let cpassword = passwordTextField.text!
             guard let cage = Int(ageTextField.text!) else { return }
             let caddress = addressTextField.text!
-            db.insert(cid: 2, cfirstname: cfirstname, clastname: clastname, cemail: cemail, cpassword: cpassword, cage: cage, caddress: caddress)
+            let ccity = cityTextField.text!
+            let ccountry = countryTextField.text!
+            let ctelephone = telephoneTextField.text!
+            db.insert(cid: 2, cfirstname: cfirstname, clastname: clastname, cemail: cemail, cpassword: cpassword, cage: cage, caddress: caddress, ccity: ccity, ccountry: ccountry, ctelephone: ctelephone)
             custs = db.read()
             
             let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
