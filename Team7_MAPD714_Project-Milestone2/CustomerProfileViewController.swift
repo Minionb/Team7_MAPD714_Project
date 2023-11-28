@@ -52,7 +52,8 @@ class CustomerProfileViewController: UIViewController, UITableViewDataSource, UI
         
         tempPasswordLabel.text = customer!.cpassword
         
-        bookings = db.selectBookingsByCustID(cid:cid)
+        bookings = db.selectBookingsByCustID(cid:customer!.cid)
+        print(customer!.cid)
         print(bookings)
     }
     
