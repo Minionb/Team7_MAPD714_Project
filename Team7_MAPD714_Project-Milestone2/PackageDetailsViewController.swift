@@ -37,6 +37,10 @@ class PackageDetailsViewController: UIViewController,UITableViewDataSource, UITa
     
     var cruiseEndDateResult: String?
     
+    var cid : Int = 0
+    
+    var customerEmail : String = ""
+    
     // Initial dictionary list of visting places, cruise price, duration, start date and end date for table view use
     var cruiseDetails = [ ["tag":"Visting Places:","detail":""],["tag":"Cruise Price:","detail":""],["tag":"Cruise Duration","detail":""],["tag":"Cruise Start Date","detail":""],["tag":"Cruise End Date","detail":""]]
     
@@ -100,44 +104,64 @@ class PackageDetailsViewController: UIViewController,UITableViewDataSource, UITa
         cruiseTypeResultLabel.text = cruiseTypeResult
         
         // Create a button
-        let nextButton = UIButton(type: .system)
+        let bookButton = UIButton(type: .system)
         
         // Set the button title
-        nextButton.setTitle("Next", for: .normal)
+        bookButton.setTitle("Book", for: .normal)
         
         // Set the button size
-        nextButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        bookButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         
         // Set the button's position and size using Auto Layout
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(nextButton)
+        bookButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bookButton)
         NSLayoutConstraint.activate([
-            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            nextButton.heightAnchor.constraint(equalToConstant: 50)
+            bookButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bookButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bookButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            bookButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         
         // Add an action to the button
-        nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+        bookButton.addTarget(self, action: #selector(bookButtonClicked), for: .touchUpInside)
         
         
     }
-    @objc func nextButtonClicked() {
-            // Action to perform when the button is tapped
-        let control = storyboard?.instantiateViewController(withIdentifier: "customerInfo") as! CustomerInfoViewController
-        
-        // Pass the info to Customer Info Screen
-        control.IDResult = IDResult
-        control.cruiseTypeResult = cruiseTypeResult
-        control.vistingPlaceResult = vistingPlaceResult
-        control.cruisePriceResult = cruisePriceResult
-        control.cruiseDurationResult = cruiseDurationResult
-        control.cruiseStartDateResult = cruiseStartDateResult
-        control.cruiseEndDateResult = cruiseEndDateResult
-        
-        present(control, animated: true)
+    @objc func bookButtonClicked() {
+        // Action to perform when the button is tapped
+        // if user is logged in and have the customer email field
+        if (customerEmail != ""){
+            let control = storyboard?.instantiateViewController(withIdentifier: "customerInfo") as! CustomerInfoViewController
+            
+            // Pass the info to Customer Info Screen
+            control.IDResult = IDResult
+            control.cruiseTypeResult = cruiseTypeResult
+            control.vistingPlaceResult = vistingPlaceResult
+            control.cruisePriceResult = cruisePriceResult
+            control.cruiseDurationResult = cruiseDurationResult
+            control.cruiseStartDateResult = cruiseStartDateResult
+            control.cruiseEndDateResult = cruiseEndDateResult
+            control.cid =  cid
+            control.customerEmail = customerEmail
+            
+            present(control, animated: true)
         }
+        else {
+            let statement = "You have not logged in. Please create account and login for cruise booking."
+            // Create the alert controller
+            let alertController = UIAlertController(title: "Please Login", message: statement, preferredStyle: .alert)
+
+            // Create an action for the alert
+            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            }
+
+            // Add the action to the alert controller
+            alertController.addAction(okAction)
+
+            // Present the alert controller
+            present(alertController, animated: true, completion: nil)
+        }
+    }
     
     let packageDetailsIdentifier = "PackageDetailsIdentifier"
     

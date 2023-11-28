@@ -14,7 +14,7 @@ import SQLite3
 class CustomerProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     // Pass from Login Screen
-    var cid = 3
+    var cid : Int = 1
     var customerEmail: String = ""
     
     var db = BookingInfoDBManager()
@@ -53,6 +53,8 @@ class CustomerProfileViewController: UIViewController, UITableViewDataSource, UI
         tempPasswordLabel.text = customer!.cpassword
         
         bookings = db.selectBookingsByCustID(cid:customer!.cid)
+        
+        cid = customer!.cid
         print(customer!.cid)
         print(bookings)
     }
@@ -67,6 +69,17 @@ class CustomerProfileViewController: UIViewController, UITableViewDataSource, UI
         
         present(control, animated: true)
     }
+    
+    @IBAction func bookCruiseButtonClicked(_ sender: UIButton) {
+        
+        let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
+        
+        control.cid = cid
+        control.customerEmail = customerEmail
+        
+        present(control, animated: true)
+    }
+    
     
     let customerProfileIdentifier = "customerProfileIdentifier"
     

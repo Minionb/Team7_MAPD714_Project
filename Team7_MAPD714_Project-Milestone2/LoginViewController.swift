@@ -17,9 +17,10 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var errorLabelText: UILabel!
     
-    // CustomerInfo database test code
+    // CustomerInfo database
     var db = CustomerInfoDBManager()
     var custs = Array<CustomerInfo>()
+    var cid : Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,7 @@ class LoginViewController: UIViewController {
     
     func login(cemail: String, cpassword: String) -> Bool {
         if let customer = db.getCustomer(cemail: cemail, cpassword: cpassword) {
+            cid = customer.cid
             return true
         }
         else {
@@ -46,37 +48,19 @@ class LoginViewController: UIViewController {
             let emailString = emailTextField.text ?? ""
             let passwordString = passwordTextField.text ?? ""
             
-            // CustomerInfo database test code
-
-//            custs = db.read()
-//            if (emailTextField.text == custs[0].cemail && passwordTextField.text == custs[0].cpassword) {
-//                let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
-//                
-//                present(control, animated: true)
-//            }
-//            else {
-//                errorLabelText.textColor = .systemRed
-//            }
-            
-            
             
             if login(cemail: emailString, cpassword: passwordString) {
                 let control = storyboard?.instantiateViewController(withIdentifier: "profileView") as! CustomerProfileViewController
                 
+                print(cid)
                 control.customerEmail = emailString
+                control.cid = cid
                 
                 present(control, animated: true)
             }
             else {
                 errorLabelText.textColor = .systemRed
             }
-            
-            
-            
-//            let loginAlert = UIAlertController(title: "Login Successful", message: "", preferredStyle: .alert)
-//            let continueAction = UIAlertAction(title: "Continue", style: .cancel, handler: nil)
-//            loginAlert.addAction(continueAction)
-//            self.present(loginAlert, animated: true, completion: nil)
      
             
         }
@@ -84,7 +68,6 @@ class LoginViewController: UIViewController {
     
     @IBAction func guestButtonOnClicked(_ sender: Any) {
         let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
-//        let control = storyboard?.instantiateViewController(withIdentifier: "profileView") as! CustomerProfileViewController
         
         present(control, animated: true)
     }

@@ -37,8 +37,27 @@ class CustomerInfoDBManager {
         }
     }
     
+    func dropTable() {
+        var dropTableString = "DROP TABLE IF EXISTS CustomerInfo;"
+        
+        var dropTableStatement: OpaquePointer? = nil
+        
+        if sqlite3_prepare(db, dropTableString, -1, &dropTableStatement, nil) == SQLITE_OK {
+            if sqlite3_step(dropTableStatement) == SQLITE_DONE {
+                print("CustomerInfo table dropped successfully!")
+            }
+            else {
+                print("CustomerInfo table dropped failed!")
+            }
+        }
+        else {
+            print("Drop statement failed!")
+        }
+        sqlite3_finalize(dropTableStatement)
+    }
+    
     func createTable() {
-        let createTableString = "CREATE TABLE IF NOT EXISTS CustomerInfo (cid INTEGER PRIMARY KEY, cfirstname TEXT, clastname TEXT, cemail TEXT, cpassword TEXT, cage INTEGER, caddress TEXT, ccity TEXT, ccountry TEXT, ctelephone TEXT)"
+        let createTableString = "CREATE TABLE IF NOT EXISTS CustomerInfo (cid INTEGER PRIMARY KEY AUTOINCREMENT, cfirstname TEXT, clastname TEXT, cemail TEXT, cpassword TEXT, cage INTEGER, caddress TEXT, ccity TEXT, ccountry TEXT, ctelephone TEXT)"
         var createTableStatement: OpaquePointer? = nil
         
         if sqlite3_prepare(db, createTableString, -1, &createTableStatement, nil) == SQLITE_OK {
@@ -122,11 +141,10 @@ class CustomerInfoDBManager {
                 
                 let customerInfo = CustomerInfo(cid: Int(cid), cfirstname: cfirstname, clastname: clastname, cemail: cemail, cpassword: cpassword, cage: Int(cage), caddress: caddress, ccity: ccity, ccountry: ccountry, ctelephone: ctelephone)
                 
-                
-//                if sqlite3_step(getStatement) != SQLITE_DONE {
-//                    let errorMessage = String(cString: sqlite3_errmsg(db))
-//                    print("Error getting customerinfo: \(errorMessage)")
-//                }
+                if sqlite3_step(getStatement) != SQLITE_DONE {
+                    let errorMessage = String(cString: sqlite3_errmsg(db))
+                    print("Error getting customerinfo: \(errorMessage)")
+                }
                 
                 sqlite3_finalize(getStatement)
                 return customerInfo
@@ -172,30 +190,24 @@ class CustomerInfoDBManager {
     }
     
     // function to insert a row into CustomerInfo table
-    func insert(cid:Int, cfirstname:String, clastname:String, cemail:String, cpassword:String, cage:Int, caddress:String, ccity:String, ccountry:String, ctelephone:String)
+    func insert(cfirstname:String, clastname:String, cemail:String, cpassword:String, cage:Int, caddress:String, ccity:String, ccountry:String, ctelephone:String)
     {
         let customers = read()
-        for custs in customers
-        {
-            if custs.cid == cid
-            {
-                return
-            }
-        }
-        let insertStatementString = "INSERT INTO CustomerInfo (cid, cfirstname, clastname, cemail, cpassword, cage, caddress, ccity, ccountry, ctelephone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+
+        let insertStatementString = "INSERT INTO CustomerInfo (cfirstname, clastname, cemail, cpassword, cage, caddress, ccity, ccountry, ctelephone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"
         var insertStatement: OpaquePointer? = nil
         if sqlite3_prepare_v2(db, insertStatementString, -1, &insertStatement, nil) ==
             SQLITE_OK {
-            sqlite3_bind_int(insertStatement, 1, Int32(cid))
-            sqlite3_bind_text(insertStatement, 2, (cfirstname as NSString).utf8String, -1, nil)
-            sqlite3_bind_text(insertStatement, 3, (clastname as NSString).utf8String, -1, nil)
-            sqlite3_bind_text(insertStatement, 4, (cemail as NSString).utf8String, -1, nil)
-            sqlite3_bind_text(insertStatement, 5, (cpassword as NSString).utf8String, -1, nil)
-            sqlite3_bind_int(insertStatement, 6, Int32(cage))
-            sqlite3_bind_text(insertStatement, 7, (caddress as NSString).utf8String, -1, nil)
-            sqlite3_bind_text(insertStatement, 8, (ccity as NSString).utf8String, -1, nil)
-            sqlite3_bind_text(insertStatement, 9, (ccountry as NSString).utf8String, -1, nil)
-            sqlite3_bind_text(insertStatement, 10, (ctelephone as NSString).utf8String, -1, nil)
+//            sqlite3_bind_int(insertStatement, 1, Int32(cid))
+            sqlite3_bind_text(insertStatement, 1, (cfirstname as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 2, (clastname as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 3, (cemail as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 4, (cpassword as NSString).utf8String, -1, nil)
+            sqlite3_bind_int(insertStatement, 5, Int32(cage))
+            sqlite3_bind_text(insertStatement, 6, (caddress as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 7, (ccity as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 8, (ccountry as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 9, (ctelephone as NSString).utf8String, -1, nil)
             if sqlite3_step(insertStatement) == SQLITE_DONE {
                 print("A customer was added successfully!")
             } else {
@@ -242,5 +254,42 @@ class CustomerInfoDBManager {
         }
         sqlite3_finalize(queryStatement)
         return custs
+    }
+    
+    func getCustomerByCID(cid:Int) -> CustomerInfo? {
+        let queryStatementString = "SELECT * FROM CustomerInfo WHERE cid = ?;"
+        var queryStatement: OpaquePointer? = nil
+        var customerInfo : CustomerInfo?
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) ==
+        SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                let cid = sqlite3_column_int(queryStatement, 0)
+                let cfirstname = String(describing: String(cString:
+                sqlite3_column_text(queryStatement, 1)))
+                let clastname = String(describing: String(cString:
+                sqlite3_column_text(queryStatement, 2)))
+                let cemail = String(describing: String(cString:
+                sqlite3_column_text(queryStatement, 3)))
+                let cpassword = String(describing: String(cString:
+                sqlite3_column_text(queryStatement, 4)))
+                let cage = sqlite3_column_int(queryStatement, 5)
+                let caddress = String(describing: String(cString:
+                sqlite3_column_text(queryStatement, 6)))
+                let ccity = String(describing: String(cString:
+                sqlite3_column_text(queryStatement, 7)))
+                let ccountry = String(describing: String(cString:
+                sqlite3_column_text(queryStatement, 8)))
+                let ctelephone = String(describing: String(cString:
+                sqlite3_column_text(queryStatement, 9)))
+                
+                customerInfo = CustomerInfo(cid: Int(cid), cfirstname: cfirstname, clastname: clastname, cemail: cemail, cpassword: cpassword, cage: Int(cage), caddress: caddress, ccity: ccity, ccountry: ccountry, ctelephone: ctelephone)
+                print("CustomerInfo Details:")
+                print("\(cid) | \(cfirstname) | \(clastname) | \(cemail) | \(cpassword) | \(cage) | \(caddress) | \(ccity) | \(ccountry) | \(ctelephone)")
+            }
+        } else {
+            print("SELECT statement failed to proceed!!!")
+        }
+        sqlite3_finalize(queryStatement)
+        return customerInfo
     }
 }
