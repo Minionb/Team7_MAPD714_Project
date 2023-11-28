@@ -12,7 +12,15 @@ import UIKit
 
 class CustomerInfoViewController: UIViewController {
     
+    // CustomerInfo database
+    var db = CustomerInfoDBManager()
+    var customer : CustomerInfo?
+    
     // Bring result passed from the Package Details screen
+    var cid : Int = 0
+    
+    var customerEmail : String = ""
+    
     var IDResult: String?
     
     var cruiseTypeResult: String?
@@ -40,6 +48,12 @@ class CustomerInfoViewController: UIViewController {
     
     var seniorGuestSegmentedControl: UISegmentedControl?
     
+    var customerName : String = ""
+    
+    var address : String = ""
+    
+    var cityCountry : String = ""
+    
     
     // Register Components from story board
     @IBOutlet weak var icon: UIImageView!
@@ -49,89 +63,115 @@ class CustomerInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("customer Info:")
+        if let customer = db.getCustomerByEmail(cemail: customerEmail){
+            print(customer)
+            customerName = customer.cfirstname + " " + customer.clastname
+            
+            address = customer.caddress
+            
+            cityCountry = customer.ccity + ", " + customer.ccountry
+        }
         // Create name label
         let nameLabel = UILabel()
         nameLabel.text = "Name:"
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        // Create name text field
-        nameInput = UITextField()
-        nameInput?.borderStyle = .roundedRect
-        nameInput?.translatesAutoresizingMaskIntoConstraints = false
+        // Create name result label
+        let nameResult = UILabel()
+        nameResult.text = customerName
+        nameResult.translatesAutoresizingMaskIntoConstraints = false
+//        nameInput = UITextField()
+//        nameInput?.borderStyle = .roundedRect
+//        nameInput?.translatesAutoresizingMaskIntoConstraints = false
         
         // Add the name label and name text field to the view
         view.addSubview(nameLabel)
-        if let nameInput = nameInput{
-            view.addSubview(nameInput)
-            
+        view.addSubview(nameResult)
+//        if let nameInput = nameInput{
+//            view.addSubview(nameInput)
+//            nameInput.text = customerName
             // Set the name label and name text field constraints
             NSLayoutConstraint.activate([
                 nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
                 nameLabel.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 30),
-                nameInput.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 8),
-                nameInput.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-                nameInput.widthAnchor.constraint(equalTo: nameLabel.widthAnchor),
-                nameInput.heightAnchor.constraint(equalTo: nameLabel.heightAnchor),
-                nameInput.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor)
+                nameResult.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 8),
+                nameResult.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+                nameResult.widthAnchor.constraint(equalTo: nameLabel.widthAnchor),
+                nameResult.heightAnchor.constraint(equalTo: nameLabel.heightAnchor),
+                nameResult.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor)
             ])
-        }
+     //   }
         
         // Create address label
         let addressLabel = UILabel()
         addressLabel.text = "Address:"
         addressLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        // Create address text field
-        addressInput = UITextField()
-        addressInput?.borderStyle = .roundedRect
-        addressInput?.translatesAutoresizingMaskIntoConstraints = false
+        // Create address result label
+        let addressResult = UILabel()
+        addressResult.text = address
+        addressResult.translatesAutoresizingMaskIntoConstraints = false
         
-        // Add the address label and address text field to the view
+//        // Create address result label
+//        addressInput = UITextField()
+//        addressInput?.borderStyle = .roundedRect
+//        addressInput?.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Add the address label and address result to the view
         view.addSubview(addressLabel)
+        view.addSubview(addressResult)
         
-        if let addressInput = addressInput{
-            view.addSubview(addressInput)
+//        if let addressInput = addressInput{
+//            view.addSubview(addressInput)
             
+//            addressInput.text = address
             // Set the address label and address text field constraints
             NSLayoutConstraint.activate([
                 addressLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
                 addressLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor, constant: 40),
-                addressInput.leadingAnchor.constraint(equalTo: addressLabel.trailingAnchor, constant: 8),
-                addressInput.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-                addressInput.centerYAnchor.constraint(equalTo: addressLabel.centerYAnchor),
-                addressInput.widthAnchor.constraint(equalTo: addressLabel.widthAnchor),
-                addressInput.heightAnchor.constraint(equalTo: addressLabel.heightAnchor),
+                addressResult.leadingAnchor.constraint(equalTo: addressLabel.trailingAnchor, constant: 8),
+                addressResult.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+                addressResult.centerYAnchor.constraint(equalTo: addressLabel.centerYAnchor),
+                addressResult.widthAnchor.constraint(equalTo: addressLabel.widthAnchor),
+                addressResult.heightAnchor.constraint(equalTo: addressLabel.heightAnchor),
             ])
-        }
+    //    }
         
         // Create City and Country label
         let cityCountryLabel = UILabel()
         cityCountryLabel.text = "City and Country:"
         cityCountryLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        // Create City and Country text field
-        cityCountryInput = UITextField()
-        cityCountryInput?.borderStyle = .roundedRect
-        cityCountryInput?.translatesAutoresizingMaskIntoConstraints = false
+        // Create City and Country result label
+        let cityCountryResult = UILabel()
+        cityCountryResult.text = cityCountry
+        cityCountryResult.translatesAutoresizingMaskIntoConstraints = false
+        
+//        // Create City and Country text field
+//        cityCountryInput = UITextField()
+//        cityCountryInput?.borderStyle = .roundedRect
+//        cityCountryInput?.translatesAutoresizingMaskIntoConstraints = false
         
         // Add the City and Country label and address text field to the view
         view.addSubview(cityCountryLabel)
+        view.addSubview(cityCountryResult)
         
-        if let cityCountryInput = cityCountryInput{
-            view.addSubview(cityCountryInput)
+//        if let cityCountryInput = cityCountryInput{
+//            view.addSubview(cityCountryInput)
             
+//            cityCountryInput.text = cityCountry
             // Set the City and Country label and address text field constraints
             NSLayoutConstraint.activate([
                 cityCountryLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
                 cityCountryLabel.topAnchor.constraint(equalTo: addressLabel.topAnchor, constant: 40),
-                cityCountryInput.leadingAnchor.constraint(equalTo: cityCountryLabel.trailingAnchor, constant: 8),
-                cityCountryInput.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-                cityCountryInput.centerYAnchor.constraint(equalTo: cityCountryLabel.centerYAnchor),
-                cityCountryInput.widthAnchor.constraint(equalTo: cityCountryLabel.widthAnchor),
-                cityCountryInput.heightAnchor.constraint(equalTo: cityCountryLabel.heightAnchor),
+                cityCountryResult.leadingAnchor.constraint(equalTo: cityCountryLabel.trailingAnchor, constant: 8),
+                cityCountryResult.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+                cityCountryResult.centerYAnchor.constraint(equalTo: cityCountryLabel.centerYAnchor),
+                cityCountryResult.widthAnchor.constraint(equalTo: cityCountryLabel.widthAnchor),
+                cityCountryResult.heightAnchor.constraint(equalTo: cityCountryLabel.heightAnchor),
             ])
-        }
+     //   }
         
         //Number of guests
         let numberOfGuestsLabel = UILabel()
@@ -245,9 +285,9 @@ class CustomerInfoViewController: UIViewController {
         // Action to perform when the button is tapped
         let control = storyboard?.instantiateViewController(withIdentifier: "payment") as! PaymentViewController
         
-        let customerName = nameInput?.text
-        let customerAddress = addressInput?.text
-        let cityAndCountry = cityCountryInput?.text
+//        let customerName = nameInput?.text
+//        let customerAddress = addressInput?.text
+//        let cityAndCountry = cityCountryInput?.text
 
         
         let numberOfAdultsString = numberOfAdultsInput?.text
@@ -256,17 +296,17 @@ class CustomerInfoViewController: UIViewController {
         var numberOfAdults: Int?
         var numberOfKids: Int?
         
-        if (customerName == ""){
-            missingFields.append("Customer Name")
-        }
+//        if (customerName == ""){
+//            missingFields.append("Customer Name")
+//        }
         
-        if (customerAddress == ""){
-            missingFields.append("Customer Address")
-        }
-        
-        if (cityAndCountry == ""){
-            missingFields.append("City and Country")
-        }
+//        if (customerAddress == ""){
+//            missingFields.append("Customer Address")
+//        }
+//
+//        if (cityAndCountry == ""){
+//            missingFields.append("City and Country")
+//        }
         
         
         if let number = Int(numberOfAdultsString ?? "") {
@@ -299,9 +339,10 @@ class CustomerInfoViewController: UIViewController {
         
         if (missingFields.count == 0){
             // Pass the info to Payment Screen
+            control.cid = cid
             control.customerNameResult = customerName
-            control.customerAddressResult = customerAddress
-            control.cityAndCountryResult = cityAndCountry
+            control.customerAddressResult = address
+            control.cityAndCountryResult = cityCountry
             control.hasSeniorResult = hasSenior
             control.numberOfAdultsResult = numberOfAdults
             control.numberOfKidsResult = numberOfKids
@@ -312,7 +353,8 @@ class CustomerInfoViewController: UIViewController {
             control.cruiseDurationResult = cruiseDurationResult
             control.cruiseStartDateResult = cruiseStartDateResult
             control.cruiseEndDateResult = cruiseEndDateResult
-            
+            print("profile")
+            print(cid)
             // Go to Payment Screen
             present(control, animated: true)
         }

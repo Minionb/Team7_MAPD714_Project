@@ -33,9 +33,6 @@ class RegisterViewController: UIViewController {
         errorTextLabel.textColor = .white
         
         //db.deleteAllCustomers()
-        
-        // CustomerInfo database test code
-        db.insert(cid: 1, cfirstname: "Cole", clastname: "Anam", cemail: "coleanam@gmail.com", cpassword: "admin", cage: 23, caddress: "temp", ccity: "Toronto", ccountry: "Canada", ctelephone: "123-456-7890")
         custs = db.read()
     }
     
@@ -60,13 +57,50 @@ class RegisterViewController: UIViewController {
             let ccity = cityTextField.text!
             let ccountry = countryTextField.text!
             let ctelephone = telephoneTextField.text!
-            db.insert(cid: 2, cfirstname: cfirstname, clastname: clastname, cemail: cemail, cpassword: cpassword, cage: cage, caddress: caddress, ccity: ccity, ccountry: ccountry, ctelephone: ctelephone)
-            custs = db.read()
-            
-//            let control = storyboard?.instantiateViewController(withIdentifier: "search") as! SearchViewController
-            let control = storyboard?.instantiateViewController(withIdentifier: "profileView") as! CustomerProfileViewController
-            
-            present(control, animated: true)
+
+            if let isExistedCustomer = db.getCustomerByEmail(cemail: cemail)
+            {
+                let userExistStatement = "User with " + cemail + " is already registered. Please log in or register with another email address."
+                // Create the alert controller
+                let alertController = UIAlertController(title: "User Exists!", message: userExistStatement, preferredStyle: .alert)
+
+                // Create an action for the alert
+                let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                }
+
+                // Add the action to the alert controller
+                alertController.addAction(okAction)
+
+                // Present the alert controller
+                present(alertController, animated: true, completion: nil)
+            }
+            else{
+                db.insert(cfirstname: cfirstname, clastname: clastname, cemail: cemail, cpassword: cpassword, cage: cage, caddress: caddress, ccity: ccity, ccountry: ccountry, ctelephone: ctelephone)
+                
+                let successStatement = "You have successfully registered with " + cemail + ". Please login and book your favorable cruises!"
+                // Create the alert controller
+                let alertController = UIAlertController(title: "Successfully Registered!", message: successStatement, preferredStyle: .alert)
+
+                // Create an action for the alert
+                let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                }
+
+                // Add the action to the alert controller
+                alertController.addAction(okAction)
+
+                // Present the alert controller
+                present(alertController, animated: true, completion: nil)
+                
+                firstNameTextField.text = ""
+                lastNameTextField.text = ""
+                emailTextField.text = ""
+                passwordTextField.text = ""
+                ageTextField.text = ""
+                addressTextField.text = ""
+                cityTextField.text = ""
+                countryTextField.text = ""
+                telephoneTextField.text = ""
+            }
         }
     }
     
