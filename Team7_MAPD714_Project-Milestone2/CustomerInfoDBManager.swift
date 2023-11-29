@@ -262,6 +262,7 @@ class CustomerInfoDBManager {
         var customerInfo : CustomerInfo?
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) ==
         SQLITE_OK {
+            sqlite3_bind_int(queryStatement, 1, Int32(cid))
             while sqlite3_step(queryStatement) == SQLITE_ROW {
                 let cid = sqlite3_column_int(queryStatement, 0)
                 let cfirstname = String(describing: String(cString:

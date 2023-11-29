@@ -38,7 +38,7 @@ class CustomerProfileViewController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        customer = dbCusts.getCustomerByEmail(cemail: customerEmail)!
+        customer = dbCusts.getCustomerByEmail(cemail: customerEmail)
         
         tempFullNameLabel.text = customer!.cfirstname + " " + customer!.clastname
         
@@ -101,6 +101,7 @@ class CustomerProfileViewController: UIViewController, UITableViewDataSource, UI
         let textLabel = "Booking ID: "  + String(booking.bid)
         
         cell?.textLabel?.text =  textLabel
+        cell?.textLabel?.font = UIFont.systemFont(ofSize: 10)
         
         let cruiseTypeString = booking.bcruiseType
         let cruiseDurationString =  String(booking.bnightNum)
@@ -109,6 +110,7 @@ class CustomerProfileViewController: UIViewController, UITableViewDataSource, UI
         let detailLabel = cruiseDurationString + "-Night " + cruiseTypeString + " on " + cruiseStartDateString
         
         cell?.detailTextLabel?.text = detailLabel
+        cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 10)
         
         let imageName = cruiseTypeString
         

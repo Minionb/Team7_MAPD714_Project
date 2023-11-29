@@ -19,6 +19,8 @@ class PaymentViewController: UIViewController {
     // Pass from Login Screen
     var cid : Int = 0
     
+    var customerEmail : String = ""
+    
     // Bring result passed from the Customer Info screen
     var customerNameResult: String?
     
@@ -169,6 +171,8 @@ class PaymentViewController: UIViewController {
             
             // Pass the info to Cruise Reservation Info Screen
             // DOES NOT INCLUDE PAYMENT INFO
+            control.cid = cid
+            control.customerEmail = customerEmail
             control.customerNameResult = customerNameResult
             control.customerAddressResult = customerAddressResult
             control.cityAndCountryResult = cityAndCountryResult
