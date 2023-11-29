@@ -15,6 +15,7 @@ class BookingDetailsViewController: UIViewController, UITableViewDataSource, UIT
     
     var bookingIDResult: Int?
     var booking: BookingInfo?
+    var cid : Int = 1
     
     var db = BookingInfoDBManager()
     var customerDB = CustomerInfoDBManager()
@@ -89,7 +90,7 @@ class BookingDetailsViewController: UIViewController, UITableViewDataSource, UIT
             totalPriceString = String(unwrappedTotalPriceString)
         }
     
-        if let unwrappedCustomer = customerDB.getCustomerByCID(cid:7) {
+        if let unwrappedCustomer = customerDB.getCustomerByCID(cid:cid) {
             customerName = unwrappedCustomer.cfirstname + " " + unwrappedCustomer.clastname
             customerEmail = unwrappedCustomer.cemail
         }
