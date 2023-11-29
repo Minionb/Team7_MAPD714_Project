@@ -17,6 +17,7 @@ class BookingDetailsViewController: UIViewController, UITableViewDataSource, UIT
     var booking: BookingInfo?
     
     var db = BookingInfoDBManager()
+    var customerDB = CustomerInfoDBManager()
     
     var bookingDetails = [["tag":"Customer Name:","detail":""],["tag":"Customer Address:","detail":""],["tag":"City and Country:","detail":""],["tag":"Type of Cruise:","detail":""],["tag":"Start Date:","detail":""],["tag":"Visiting Places:","detail": ""],["tag":"Number of Guests (Adult):","detail":""],["tag":"Number of Guests (Kids):","detail":""],["tag":"Has Senior Guest:","detail":""],["tag":"Number of Nights:","detail":""],["tag":"Price per Person:","detail":""],["tag":"Total Price:","detail":""]]
 
@@ -31,6 +32,8 @@ class BookingDetailsViewController: UIViewController, UITableViewDataSource, UIT
         booking = unwrappedBooking
         let bidString = String(bid)
         var cidString = ""
+        var customerName = ""
+        var customerEmail = ""
         var cruiseTypeString = ""
         var cruiseStartDateString = ""
         var cruiseEndDateString = ""
@@ -85,9 +88,13 @@ class BookingDetailsViewController: UIViewController, UITableViewDataSource, UIT
         if let unwrappedTotalPriceString = booking?.btotalPrice {
             totalPriceString = String(unwrappedTotalPriceString)
         }
-          
+    
+        if let unwrappedCustomer = customerDB.getCustomerByCID(cid:7) {
+            customerName = unwrappedCustomer.cfirstname + " " + unwrappedCustomer.clastname
+            customerEmail = unwrappedCustomer.cemail
+        }
             
-        bookingDetails = [["tag":"Booking ID:","detail":bidString],["tag":"Customer ID:","detail":cidString],["tag":"Type of Cruise:","detail":cruiseTypeString],["tag":"Start Date:","detail":cruiseStartDateString],["tag":"End Date:","detail":cruiseEndDateString],["tag":"Visiting Places:","detail": visitingPlacesString],["tag":"Number of Guests (Adult):","detail":adultNumString],["tag":"Number of Guests (Kids):","detail":kidNumString],["tag":"Has Senior Guest:","detail":hasSeniorString],["tag":"Number of Nights:","detail":nightNumString],["tag":"Price per Person:","detail":cruisePriceString],["tag":"Total Price:","detail":totalPriceString]]
+        bookingDetails = [["tag":"Booking ID:","detail":bidString],["tag":"Customer Name:","detail":customerName],["tag":"Customer Email:","detail":customerEmail], ["tag":"Type of Cruise:","detail":cruiseTypeString],["tag":"Start Date:","detail":cruiseStartDateString],["tag":"End Date:","detail":cruiseEndDateString],["tag":"Visiting Places:","detail": visitingPlacesString],["tag":"Number of Guests (Adult):","detail":adultNumString],["tag":"Number of Guests (Kids):","detail":kidNumString],["tag":"Has Senior Guest:","detail":hasSeniorString],["tag":"Number of Nights:","detail":nightNumString],["tag":"Price per Person($):","detail":cruisePriceString],["tag":"Total Price($):","detail":totalPriceString]]
         
     }
     
@@ -112,9 +119,10 @@ class BookingDetailsViewController: UIViewController, UITableViewDataSource, UIT
         let detail = String(describing: rowData["detail"] ?? "")
         
         cell?.textLabel?.text = tag
-
+        cell?.textLabel?.font = UIFont.systemFont(ofSize: 10)
         
         cell?.detailTextLabel?.text = detail
+        cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 10)
         
         return cell!
     }
