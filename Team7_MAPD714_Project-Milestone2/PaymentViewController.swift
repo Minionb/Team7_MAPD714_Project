@@ -17,7 +17,9 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var Confirm: UIButton!
     
     // Pass from Login Screen
-    var cid = 3
+    var cid : Int = 0
+    
+    var customerEmail : String = ""
     
     // Bring result passed from the Customer Info screen
     var customerNameResult: String?
@@ -164,9 +166,13 @@ class PaymentViewController: UIViewController {
             print(bookings)
             
             emptyFieldMessageLabel.textColor = .white
+            print("payment")
+            print(cid)
             
             // Pass the info to Cruise Reservation Info Screen
             // DOES NOT INCLUDE PAYMENT INFO
+            control.cid = cid
+            control.customerEmail = customerEmail
             control.customerNameResult = customerNameResult
             control.customerAddressResult = customerAddressResult
             control.cityAndCountryResult = cityAndCountryResult

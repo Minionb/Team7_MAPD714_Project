@@ -12,6 +12,11 @@ import UIKit
 
 class CruiseReservationInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    // Pass from Login Screen
+    var cid : Int = 0
+    
+    var customerEmail : String = ""
+    
     // Bring result passed from the Payment screen
     var customerNameResult: String?
     
@@ -133,4 +138,14 @@ class CruiseReservationInfoViewController: UIViewController, UITableViewDataSour
         
         return cell!
     }
+    
+    @IBAction func onGoBackButtonClicked(_ sender: UIButton) {
+        let control = storyboard?.instantiateViewController(withIdentifier: "profileView") as! CustomerProfileViewController
+        
+        control.customerEmail = customerEmail
+        control.cid = cid
+        
+        present(control, animated: true)
+    }
+    
 }
