@@ -36,11 +36,48 @@ class RegisterViewController: UIViewController {
         custs = db.read()
     }
     
+    func isValidPhoneNumber(phoneNumber: String) -> Bool {
+        let phoneRegex = "^[+]?[0-9]{6,}$" // Regular expression pattern for phone number validation
+        
+        let phonePredicate = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+        return phonePredicate.evaluate(with: phoneNumber)
+    }
+    
+    func isValidEmail(email: String) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        
+        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        return emailPredicate.evaluate(with: email)
+    }
+    
+    func isValidAge(ageString: String) -> Bool {
+        guard let age = Int(ageString) else {
+            return false // Invalid integer conversion
+        }
+        
+        let minimumAge = 0
+        let maximumAge = 150
+        
+        return age >= minimumAge && age <= maximumAge
+    }
+    
     @IBAction func signUpButtonOnClicked(_ sender: Any) {
         if (firstNameTextField.text?.isEmpty == true || lastNameTextField.text?.isEmpty == true || emailTextField.text?.isEmpty == true || passwordTextField.text?.isEmpty == true || ageTextField.text?.isEmpty == true || addressTextField.text?.isEmpty == true ||
             cityTextField.text?.isEmpty == true ||
             countryTextField.text?.isEmpty == true ||
             telephoneTextField.text?.isEmpty == true) {
+            errorTextLabel.textColor = .systemRed
+        }
+        else if(!isValidEmail(email: emailTextField.text ?? "")){
+            errorTextLabel.text = "Invalid email"
+            errorTextLabel.textColor = .systemRed
+        }
+        else if (!isValidAge(ageString: ageTextField.text ?? "")){
+            errorTextLabel.text = "Invalid age value"
+            errorTextLabel.textColor = .systemRed
+        }
+        else if (!isValidPhoneNumber(phoneNumber: telephoneTextField.text ?? "")){
+            errorTextLabel.text = "Invalid phone number"
             errorTextLabel.textColor = .systemRed
         }
         else {

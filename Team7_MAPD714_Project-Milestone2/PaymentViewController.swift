@@ -164,9 +164,45 @@ class PaymentViewController: UIViewController, UITextFieldDelegate {
         payTypeLabel.text = "Paypal"
     }
     
+    func isValidExpiryDate(month: String, year: String) -> Bool {
+        // Parse the input values as integers
+//        guard let inputMonth = Int(month), let inputYear = Int(year) else {
+//            return false
+//        }
+        guard let inputYear = Int(year), inputYear >= 0 else {
+            return false
+        }
+
+
+        guard month.count == 2, let inputMonth = Int(month), inputMonth >= 1, inputMonth <= 12 else {
+            return false
+        }
+
+        // Perform basic validation checks
+        let currentYear = Calendar.current.component(.year, from: Date()) % 100
+        let currentMonth = Calendar.current.component(.month, from: Date())
+
+        if inputYear < currentYear || (inputYear == currentYear && inputMonth < currentMonth) {
+            return false // Expiry date is in the past
+        }
+
+        if inputMonth < 1 || inputMonth > 12 {
+            return false // Invalid month
+        }
+        return true
+    }
+    
     @IBAction func onConfirmPressed(_ sender: UIButton) {
         
         let control = storyboard?.instantiateViewController(withIdentifier: "cruiseReservationInfo") as! CruiseReservationInfoViewController
+        
+        var cardNum = cardNumTextField.text
+        var sizeOfCardNum = cardNum?.utf16.count
+        print(sizeOfCardNum)
+        var expiryMonth = ""
+        var expiryYear = ""
+        expiryMonth = expiryMonthTextField.text ?? ""
+        expiryYear = expiryYearTextField.text ?? ""
         
         // Check if there are any empty fields or payment type not selected and show error message
         if (cardNumTextField.text?.isEmpty == true ||
@@ -181,6 +217,15 @@ class PaymentViewController: UIViewController, UITextFieldDelegate {
             emptyFieldMessageLabel.text = "Payment type not selected"
             emptyFieldMessageLabel.textColor = .systemRed
         }
+        else if (sizeOfCardNum != 16){
+            emptyFieldMessageLabel.text = "Card number is not valid"
+            emptyFieldMessageLabel.textColor = .systemRed
+        }
+        else if (!isValidExpiryDate(month: expiryMonth, year: expiryYear)){
+            emptyFieldMessageLabel.text = "Card expiry date is not valid"
+            emptyFieldMessageLabel.textColor = .systemRed
+        }
+        
         else {
             // Insert Booking Details to DB
             var nightNum = 0
