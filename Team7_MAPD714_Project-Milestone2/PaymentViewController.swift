@@ -11,7 +11,7 @@
 import UIKit
 import SQLite3
 
-class PaymentViewController: UIViewController {
+class PaymentViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBOutlet weak var Confirm: UIButton!
@@ -69,6 +69,10 @@ class PaymentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        cardNumTextField.delegate = self
+        expiryMonthTextField.delegate = self
+        expiryYearTextField.delegate = self
+        
         emptyFieldMessageLabel.textColor = .white
         
         // Visa payment option button
@@ -102,6 +106,42 @@ class PaymentViewController: UIViewController {
         paypalButton.frame = CGRect(x: 260, y: 75, width: 100, height: 100)
         paypalButton.addTarget(self, action: #selector(paypalTapped), for: .touchUpInside)
         view.addSubview(paypalButton)
+        
+//        NSLayoutConstraint.activate([
+//            visaButton.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 20),
+//            debitButton.leadingAnchor.constraint(equalTo: visaButton.trailingAnchor, constant: 80),
+//            applepayButton.leadingAnchor.constraint(equalTo: visaButton.trailingAnchor, constant: 80),
+//            paypalButton.leftAnchor.constraint(equalTo: applepayButton.trailingAnchor, constant: 80)
+//        ])
+    }
+    
+    // Card payment info validation
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // Numbers only
+        let allowedCharsSet = CharacterSet.decimalDigits
+        let replaceStringCharSet = CharacterSet(charactersIn: string)
+        guard allowedCharsSet.isSuperset(of: replaceStringCharSet) else {
+            return false
+        }
+        
+        // Card date validation
+        if (textField.placeholder == "mm" || textField.placeholder == "yy") {
+            // max length 2 digits
+            let maxLength = 2
+            if let text = textField.text, text.count >= maxLength, string != "" {
+                return false
+            }
+        }
+        // Card number validation
+        else {
+            // max length 16 digits
+            let maxLength = 16
+            if let text = textField.text, text.count >= maxLength, string != "" {
+                return false
+            }
+        }
+        
+        return true
     }
     
     @objc func visaTapped() {
