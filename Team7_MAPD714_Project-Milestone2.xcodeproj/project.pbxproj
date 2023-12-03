@@ -133,6 +133,8 @@
 		7806A4BA2AEEBB28000C3490 /* Team7_MAPD714_Project-Milestone2 */ = {
 			isa = PBXGroup;
 			children = (
+				7869161D2B1D283400FA7C0D /* Customer */,
+				7869161C2B1D27D900FA7C0D /* Booking */,
 				7806A4BB2AEEBB28000C3490 /* AppDelegate.swift */,
 				7806A4BD2AEEBB28000C3490 /* SceneDelegate.swift */,
 				7806A4EB2AEEBC2F000C3490 /* HomeViewController.swift */,
@@ -147,10 +149,6 @@
 				7840B7FB2B13A3450019E6ED /* BookingDetailsViewController.swift */,
 				7840B7FD2B1559D40019E6ED /* EditCustomerProfileController.swift */,
 				97FA83152AF03BFE00E8B9E6 /* RegisterViewController.swift */,
-				7840B7852B0502040019E6ED /* BookingInfo.swift */,
-				7840B7872B05028E0019E6ED /* BookingInfoDBManager.swift */,
-				9721C1262B03EE2200D60113 /* CustomerInfo.swift */,
-				9721C1282B03F03A00D60113 /* CustomerInfoDBManager.swift */,
 				7806A4C12AEEBB28000C3490 /* Main.storyboard */,
 				7806A4C42AEEBB2C000C3490 /* Assets.xcassets */,
 				7806A4C62AEEBB2C000C3490 /* LaunchScreen.storyboard */,
@@ -174,6 +172,24 @@
 				7806A4DE2AEEBB2C000C3490 /* Team7_MAPD714_Project_Milestone2UITestsLaunchTests.swift */,
 			);
 			path = "Team7_MAPD714_Project-Milestone2UITests";
+			sourceTree = "<group>";
+		};
+		7869161C2B1D27D900FA7C0D /* Booking */ = {
+			isa = PBXGroup;
+			children = (
+				7840B7852B0502040019E6ED /* BookingInfo.swift */,
+				7840B7872B05028E0019E6ED /* BookingInfoDBManager.swift */,
+			);
+			path = Booking;
+			sourceTree = "<group>";
+		};
+		7869161D2B1D283400FA7C0D /* Customer */ = {
+			isa = PBXGroup;
+			children = (
+				9721C1262B03EE2200D60113 /* CustomerInfo.swift */,
+				9721C1282B03F03A00D60113 /* CustomerInfoDBManager.swift */,
+			);
+			path = Customer;
 			sourceTree = "<group>";
 		};
 		9721C12A2B03F09500D60113 /* Frameworks */ = {
