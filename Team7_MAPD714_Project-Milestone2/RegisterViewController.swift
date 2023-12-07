@@ -21,12 +21,59 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var addressTextField: UITextField!
     @IBOutlet weak var errorTextLabel: UILabel!
     @IBOutlet weak var cityTextField: UITextField!
-    @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var telephoneTextField: UITextField!
+    @IBOutlet weak var countryButton: UIButton!
+    @IBOutlet weak var stateButton: UIButton!
     
     // CustomerInfo database test code
     var db = CustomerInfoDBManager()
     var custs = Array<CustomerInfo>()
+    
+    let countryData = [
+        "Canada",
+        "China",
+        "Mexico",
+        "United Kingdom",
+        "United States",
+    ]
+    
+    let canadaData = [
+        "NL",
+        "PE",
+        "NS",
+        "NB",
+        "QC",
+        "ON",
+        "MB",
+        "SK",
+        "AB",
+        "BC",
+        "YT",
+        "NT",
+        "NU"
+    ]
+    
+    let usData = [
+        "AL",
+        "AK",
+        "AS",
+        "AZ",
+        "AR",
+        "CA",
+        "CO",
+        "CT",
+        "DE",
+        "DC",
+        "FM",
+        "FL",
+        "GA",
+        "GU",
+        "HI",
+        "ID"
+    ]
+    
+    var selectedCountry = "Select Country"
+    var selectedState = "Select State"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +81,47 @@ class RegisterViewController: UIViewController {
         
         //db.deleteAllCustomers()
         custs = db.read()
+        
+        // Country dropdown
+        let countryActionClosure = { (action: UIAction) in (self.selectedCountry = action.title)
+            print(self.selectedCountry)
+            
+            // State dropdown
+            let stateActionClosure = { (action: UIAction) in (self.selectedState = action.title)
+                print(self.selectedState)
+            }
+            var menuStateChildren: [UIMenuElement] = [UIAction(title: "Select Province", handler: stateActionClosure)]
+            if (self.selectedCountry == "Canada") {
+                menuStateChildren = []
+                menuStateChildren.append(UIAction(title: "Select Province", handler: stateActionClosure))
+                for state in self.canadaData {
+                    menuStateChildren.append(UIAction(title: state,  handler: stateActionClosure))
+                }
+                
+            }
+            else if (self.selectedCountry == "United States") {
+                menuStateChildren = []
+                menuStateChildren.append(UIAction(title: "Select State", handler: stateActionClosure))
+                for state in self.usData {
+                    menuStateChildren.append(UIAction(title: state,  handler: stateActionClosure))
+                }
+            }
+            
+            self.stateButton.menu = UIMenu(options: .displayInline, children: menuStateChildren)
+            self.stateButton.showsMenuAsPrimaryAction = true
+            self.stateButton.changesSelectionAsPrimaryAction = true
+        }
+        var menuCountryChildren: [UIMenuElement] = []
+        menuCountryChildren.append(UIAction(title: "Select Country",  handler: countryActionClosure))
+        for country in countryData {
+            menuCountryChildren.append(UIAction(title: country,  handler: countryActionClosure))
+        }
+        countryButton.menu = UIMenu(options: .displayInline, children: menuCountryChildren)
+        countryButton.showsMenuAsPrimaryAction = true
+        countryButton.changesSelectionAsPrimaryAction = true
+        
+        
+        
     }
     
     func isValidPhoneNumber(phoneNumber: String) -> Bool {
@@ -64,8 +152,9 @@ class RegisterViewController: UIViewController {
     @IBAction func signUpButtonOnClicked(_ sender: Any) {
         if (firstNameTextField.text?.isEmpty == true || lastNameTextField.text?.isEmpty == true || emailTextField.text?.isEmpty == true || passwordTextField.text?.isEmpty == true || ageTextField.text?.isEmpty == true || addressTextField.text?.isEmpty == true ||
             cityTextField.text?.isEmpty == true ||
-            countryTextField.text?.isEmpty == true ||
-            telephoneTextField.text?.isEmpty == true) {
+            telephoneTextField.text?.isEmpty == true ||
+            selectedCountry == "Select Country" ||
+            selectedState == "Select State") {
             errorTextLabel.textColor = .systemRed
         }
         else if(!isValidEmail(email: emailTextField.text ?? "")){
@@ -92,7 +181,7 @@ class RegisterViewController: UIViewController {
             guard let cage = Int(ageTextField.text!) else { return }
             let caddress = addressTextField.text!
             let ccity = cityTextField.text!
-            let ccountry = countryTextField.text!
+            let ccountry = selectedCountry + ", " + selectedState
             let ctelephone = telephoneTextField.text!
 
             if let isExistedCustomer = db.getCustomerByEmail(cemail: cemail)
@@ -135,7 +224,8 @@ class RegisterViewController: UIViewController {
                 ageTextField.text = ""
                 addressTextField.text = ""
                 cityTextField.text = ""
-                countryTextField.text = ""
+                selectedCountry = "Select Country"
+                selectedState = "Select State"
                 telephoneTextField.text = ""
             }
         }
