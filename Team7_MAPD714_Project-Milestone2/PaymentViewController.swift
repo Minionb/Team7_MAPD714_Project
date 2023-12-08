@@ -50,9 +50,7 @@ class PaymentViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var cardNumTextField: UITextField!
     
-    @IBOutlet weak var firstNameTextField: UITextField!
-    
-    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var fullNameTextField: UITextField!
     
     @IBOutlet weak var expiryMonthTextField: UITextField!
     
@@ -206,8 +204,7 @@ class PaymentViewController: UIViewController, UITextFieldDelegate {
         
         // Check if there are any empty fields or payment type not selected and show error message
         if (cardNumTextField.text?.isEmpty == true ||
-            firstNameTextField.text?.isEmpty == true ||
-            lastNameTextField.text?.isEmpty == true ||
+            fullNameTextField.text?.isEmpty == true ||
             expiryMonthTextField.text?.isEmpty == true ||
             expiryYearTextField.text?.isEmpty == true) {
             emptyFieldMessageLabel.text = "One or more fields are empty"
