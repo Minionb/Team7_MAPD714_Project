@@ -17,6 +17,8 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var agePicker: UIPickerView!
+    
     @IBOutlet weak var ageTextField: UITextField!
     @IBOutlet weak var addressTextField: UITextField!
     @IBOutlet weak var errorTextLabel: UILabel!
@@ -28,6 +30,8 @@ class RegisterViewController: UIViewController {
     // CustomerInfo database test code
     var db = CustomerInfoDBManager()
     var custs = Array<CustomerInfo>()
+    
+    let ageData = ["18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100"]
     
     let countryData = [
         "Canada",
@@ -77,6 +81,10 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        agePicker.dataSource = self
+        agePicker.delegate = self
+        
         errorTextLabel.textColor = .white
         
         //db.deleteAllCustomers()
@@ -150,7 +158,7 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func signUpButtonOnClicked(_ sender: Any) {
-        if (firstNameTextField.text?.isEmpty == true || lastNameTextField.text?.isEmpty == true || emailTextField.text?.isEmpty == true || passwordTextField.text?.isEmpty == true || ageTextField.text?.isEmpty == true || addressTextField.text?.isEmpty == true ||
+        if (firstNameTextField.text?.isEmpty == true || lastNameTextField.text?.isEmpty == true || emailTextField.text?.isEmpty == true || passwordTextField.text?.isEmpty == true || addressTextField.text?.isEmpty == true ||
             cityTextField.text?.isEmpty == true ||
             telephoneTextField.text?.isEmpty == true ||
             selectedCountry == "Select Country" ||
@@ -159,10 +167,6 @@ class RegisterViewController: UIViewController {
         }
         else if(!isValidEmail(email: emailTextField.text ?? "")){
             errorTextLabel.text = "Invalid email"
-            errorTextLabel.textColor = .systemRed
-        }
-        else if (!isValidAge(ageString: ageTextField.text ?? "")){
-            errorTextLabel.text = "Invalid age value"
             errorTextLabel.textColor = .systemRed
         }
         else if (!isValidPhoneNumber(phoneNumber: telephoneTextField.text ?? "")){
@@ -178,7 +182,11 @@ class RegisterViewController: UIViewController {
             let clastname = lastNameTextField.text!
             let cemail = emailTextField.text!
             let cpassword = passwordTextField.text!
-            guard let cage = Int(ageTextField.text!) else { return }
+            let row = agePicker.selectedRow(inComponent: 0)
+            let selectedAge = ageData[row]
+            guard let cage = Int(selectedAge) else { return }
+            
+            //guard let cage = Int(ageTextField.text!) else { return }
             let caddress = addressTextField.text!
             let ccity = cityTextField.text!
             let ccountry = selectedCountry + ", " + selectedState
@@ -209,6 +217,9 @@ class RegisterViewController: UIViewController {
 
                 // Create an action for the alert
                 let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                    let control = self.storyboard?.instantiateViewController(withIdentifier: "login") as! LoginViewController
+                    
+                    self.present(control, animated: true)
                 }
 
                 // Add the action to the alert controller
@@ -221,7 +232,6 @@ class RegisterViewController: UIViewController {
                 lastNameTextField.text = ""
                 emailTextField.text = ""
                 passwordTextField.text = ""
-                ageTextField.text = ""
                 addressTextField.text = ""
                 cityTextField.text = ""
                 selectedCountry = "Select Country"
@@ -237,4 +247,24 @@ class RegisterViewController: UIViewController {
         present(control, animated: true)
     }
     
+}
+
+// Picker Data Source Methods
+
+extension RegisterViewController: UIPickerViewDataSource{
+func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    return 1
+}
+
+func pickerView(_ pickerView: UIPickerView,
+                numberOfRowsInComponent component: Int) -> Int {
+    return ageData.count
+}
+}
+
+extension RegisterViewController: UIPickerViewDelegate{
+// MARK: Picker Delegate Methods
+func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    return ageData[row]
+}
 }
