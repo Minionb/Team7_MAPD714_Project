@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xmX-MY-sPZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xmX-MY-sPZ">
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1208,21 +1207,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WXt-V3-aW2">
-                                <rect key="frame" x="214.66666666666663" y="643" width="164.33333333333337" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WXt-V3-aW2">
+                                <rect key="frame" x="215" y="643" width="137" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="eBg-vL-Oxb"/>
                                     <constraint firstAttribute="width" constant="164" id="fja-j0-58S"/>
                                     <constraint firstAttribute="height" constant="35" id="xwf-Xh-dAW"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Save Changes"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Save"/>
                                 <connections>
                                     <action selector="saveChangesButtonClicked:" destination="v8l-hW-Tlx" eventType="touchUpInside" id="Xo5-G9-OZI"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YjP-Kq-GQk">
-                                <rect key="frame" x="52" y="643" width="106" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YjP-Kq-GQk">
+                                <rect key="frame" x="52" y="643" width="130" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="106" id="6EA-74-mJT"/>
                                     <constraint firstAttribute="height" constant="35" id="QXG-6B-dgg"/>
@@ -1327,15 +1326,26 @@
                                             <outlet property="delegate" destination="Uzh-fa-3ZP" id="LFo-2a-wis"/>
                                         </connections>
                                     </tableView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkZ-Ja-18g">
+                                        <rect key="frame" x="50" y="627" width="250" height="35"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray" title="Cancel Booking"/>
+                                        <connections>
+                                            <action selector="onCancelClicked:" destination="Uzh-fa-3ZP" eventType="touchUpInside" id="Eaw-ec-9du"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="tkZ-Ja-18g" secondAttribute="trailing" constant="50" id="Cmf-RM-ODG"/>
+                                    <constraint firstItem="tkZ-Ja-18g" firstAttribute="top" secondItem="hx9-Yi-95b" secondAttribute="bottom" constant="8" symbolic="YES" id="EfH-mT-Uo4"/>
                                     <constraint firstItem="hx9-Yi-95b" firstAttribute="leading" secondItem="tAR-P2-WCa" secondAttribute="leading" constant="20" id="MA4-mC-WyO"/>
                                     <constraint firstAttribute="trailing" secondItem="S5h-Tn-vAT" secondAttribute="trailing" constant="90" id="ReR-jF-nVE"/>
+                                    <constraint firstAttribute="bottom" secondItem="tkZ-Ja-18g" secondAttribute="bottom" constant="17" id="Tia-Kz-SBb"/>
+                                    <constraint firstItem="tkZ-Ja-18g" firstAttribute="leading" secondItem="tAR-P2-WCa" secondAttribute="leading" constant="50" id="dF8-Ba-t93"/>
                                     <constraint firstItem="hx9-Yi-95b" firstAttribute="top" secondItem="S5h-Tn-vAT" secondAttribute="bottom" constant="20" id="eJR-dy-fgv"/>
                                     <constraint firstAttribute="trailing" secondItem="hx9-Yi-95b" secondAttribute="trailing" constant="20" symbolic="YES" id="fEj-ws-xvL"/>
                                     <constraint firstItem="S5h-Tn-vAT" firstAttribute="top" secondItem="tAR-P2-WCa" secondAttribute="top" constant="33" id="igi-n9-836"/>
-                                    <constraint firstAttribute="bottom" secondItem="hx9-Yi-95b" secondAttribute="bottom" constant="60" id="myr-h6-UKy"/>
                                     <constraint firstItem="S5h-Tn-vAT" firstAttribute="leading" secondItem="tAR-P2-WCa" secondAttribute="leading" constant="90" id="o3l-zA-aAB"/>
                                 </constraints>
                             </view>
