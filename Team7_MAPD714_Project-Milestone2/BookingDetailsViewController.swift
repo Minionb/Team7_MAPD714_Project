@@ -14,21 +14,23 @@ import SQLite3
 class BookingDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     var bookingIDResult: Int?
+    var customerEmail: String = ""
     var booking: BookingInfo?
     var cid : Int = 1
+    var bid = 0
     
-    var db = BookingInfoDBManager()
+    var bookingDB = BookingInfoDBManager()
     var customerDB = CustomerInfoDBManager()
     
     var bookingDetails = [["tag":"Customer Name:","detail":""],["tag":"Customer Address:","detail":""],["tag":"City and Country:","detail":""],["tag":"Type of Cruise:","detail":""],["tag":"Start Date:","detail":""],["tag":"Visiting Places:","detail": ""],["tag":"Number of Guests (Adult):","detail":""],["tag":"Number of Guests (Kids):","detail":""],["tag":"Has Senior Guest:","detail":""],["tag":"Number of Nights:","detail":""],["tag":"Price per Person:","detail":""],["tag":"Total Price:","detail":""]]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        var bid = 0
+        
         if let unwrappedBid = bookingIDResult {
             bid =  unwrappedBid
         }
-        let unwrappedBooking = db.selectBookingsByBookingID(bid: bid)[0]
+        let unwrappedBooking = bookingDB.selectBookingsByBookingID(bid: bid)[0]
 
         booking = unwrappedBooking
         let bidString = String(bid)
@@ -128,5 +130,47 @@ class BookingDetailsViewController: UIViewController, UITableViewDataSource, UIT
         return cell!
     }
     
+    @IBAction func onCancelClicked(_ sender: UIButton) {
+        let confirmMessage = "Are you sure you want to cancel this booking with Booking ID: " + String(bid) + "?"
+        
+        let confirmController = UIAlertController(title: "Confirmation", message: confirmMessage, preferredStyle: .alert)
 
+        // Create the action for confirming cancel order
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (_) in
+            
+            // Delete the order
+            self.bookingDB.deleteByID(bid: self.bid)
+            
+            let statementMessage = "You have successfully cancelled Booking ID: " + String(self.bid) + "."
+ 
+            let statementController = UIAlertController(title: "Successfully Cancelled Booking", message: statementMessage, preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .cancel) { [weak self] (_) in
+                guard let self = self else {
+                    return
+                }
+                let control = storyboard?.instantiateViewController(withIdentifier: "profileView") as! CustomerProfileViewController
+                
+                control.customerEmail = self.customerEmail
+                control.cid = self.cid
+                
+                self.present(control, animated: true)
+            }
+            statementController.addAction(okAction)
+            self.present(statementController, animated: true, completion: nil)
+        }
+
+        // Create the action for canceling
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+
+        }
+
+        // Add the actions to the alert controller
+        confirmController.addAction(confirmAction)
+        confirmController.addAction(cancelAction)
+        
+        self.present(confirmController, animated: true, completion: nil)
+        
+    }
+    
 }

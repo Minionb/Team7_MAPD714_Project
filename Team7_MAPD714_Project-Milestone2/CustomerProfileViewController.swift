@@ -145,6 +145,7 @@ class CustomerProfileViewController: UIViewController, UITableViewDataSource, UI
             // Pass the info to Package Details Screen
             control.bookingIDResult = BookingID
             control.cid = cid
+            control.customerEmail = customerEmail
         
             // Go to the  Package Details Screen
             present(control, animated: true)
