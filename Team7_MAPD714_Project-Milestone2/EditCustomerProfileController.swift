@@ -17,13 +17,19 @@ class EditCustomerProfileController: UIViewController {
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var phoneNumTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var agePicker: UIPickerView!
     @IBOutlet weak var errorLabelText: UILabel!
+    
+    let ageData = ["18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100"]
     
     var db = CustomerInfoDBManager()
     var customer: CustomerInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        agePicker.dataSource = self
+        agePicker.delegate = self
         
         errorLabelText.textColor = .white
         
@@ -34,6 +40,12 @@ class EditCustomerProfileController: UIViewController {
         countryTextField.text = customer?.ccountry
         phoneNumTextField.text = customer?.ctelephone
         passwordTextField.text = customer?.cpassword
+        
+        let selectedAgeIndex = (customer?.cage ?? 0) - 18
+        
+        // Set the default selected age
+            agePicker.selectRow(selectedAgeIndex, inComponent: 0, animated: false)
+        
     }
     
     @IBAction func saveChangesButtonClicked(_ sender: Any) {
@@ -48,7 +60,12 @@ class EditCustomerProfileController: UIViewController {
             customer?.ccountry = countryTextField.text!
             customer?.ctelephone = phoneNumTextField.text!
             customer?.cpassword = passwordTextField.text!
+            let row = agePicker.selectedRow(inComponent: 0)
+            let selectedAge = ageData[row]
+            guard let cage = Int(selectedAge) else { return }
             
+            customer?.cage = cage
+
             db.updateCustomer(customerInfo: customer!)
             
             let control = storyboard?.instantiateViewController(withIdentifier: "profileView") as! CustomerProfileViewController
@@ -68,4 +85,23 @@ class EditCustomerProfileController: UIViewController {
     }
     
 }
+
+extension EditCustomerProfileController: UIPickerViewDataSource{
+func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    return 1
+}
+
+func pickerView(_ pickerView: UIPickerView,
+                numberOfRowsInComponent component: Int) -> Int {
+    return ageData.count
+}
+}
+
+extension EditCustomerProfileController: UIPickerViewDelegate{
+// MARK: Picker Delegate Methods
+func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    return ageData[row]
+}
+}
+
 

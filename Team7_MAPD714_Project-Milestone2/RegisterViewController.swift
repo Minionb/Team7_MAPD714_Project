@@ -18,8 +18,6 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var agePicker: UIPickerView!
-    
-    @IBOutlet weak var ageTextField: UITextField!
     @IBOutlet weak var addressTextField: UITextField!
     @IBOutlet weak var errorTextLabel: UILabel!
     @IBOutlet weak var cityTextField: UITextField!
@@ -186,7 +184,6 @@ class RegisterViewController: UIViewController {
             let selectedAge = ageData[row]
             guard let cage = Int(selectedAge) else { return }
             
-            //guard let cage = Int(ageTextField.text!) else { return }
             let caddress = addressTextField.text!
             let ccity = cityTextField.text!
             let ccountry = selectedCountry + ", " + selectedState
