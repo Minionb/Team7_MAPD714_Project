@@ -29,6 +29,7 @@ class CustomerProfileViewController: UIViewController, UITableViewDataSource, UI
     @IBOutlet weak var tempPhoneNumLabel: UILabel!
     @IBOutlet weak var tempEmailLabel: UILabel!
     @IBOutlet weak var tempPasswordLabel: UILabel!
+    @IBOutlet weak var tempAgeLabel: UILabel!
     
     // CustomerInfo database test code
     var dbCusts = CustomerInfoDBManager()
@@ -51,6 +52,8 @@ class CustomerProfileViewController: UIViewController, UITableViewDataSource, UI
         tempEmailLabel.text = customer!.cemail
         
         tempPasswordLabel.text = customer!.cpassword
+        
+        tempAgeLabel.text = String(customer!.cage)
         
         bookings = db.selectBookingsByCustID(cid:customer!.cid)
         

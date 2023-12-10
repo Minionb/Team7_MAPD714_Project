@@ -158,7 +158,7 @@ class CustomerInfoDBManager {
     func updateCustomer(customerInfo: CustomerInfo) {
         var updateStatement: OpaquePointer?
         
-        let updateStatementString = "UPDATE CustomerInfo SET cpassword = ?, caddress = ?, ccity = ?, ccountry = ?, ctelephone = ? WHERE cemail = ?"
+        let updateStatementString = "UPDATE CustomerInfo SET cpassword = ?, caddress = ?, ccity = ?, ccountry = ?, ctelephone = ?, cage = ? WHERE cemail = ?"
         
         if sqlite3_prepare_v2(db, updateStatementString, -1, &updateStatement, nil) == SQLITE_OK {
             sqlite3_bind_text(updateStatement, 1, (customerInfo.cpassword as NSString).utf8String, -1, nil)
@@ -166,8 +166,9 @@ class CustomerInfoDBManager {
             sqlite3_bind_text(updateStatement, 3, (customerInfo.ccity as NSString).utf8String, -1, nil)
             sqlite3_bind_text(updateStatement, 4, (customerInfo.ccountry as NSString).utf8String, -1, nil)
             sqlite3_bind_text(updateStatement, 5, (customerInfo.ctelephone as NSString).utf8String, -1, nil)
-            sqlite3_bind_text(updateStatement, 6, (customerInfo.cemail as NSString).utf8String, -1, nil)
-            
+            sqlite3_bind_int(updateStatement, 6, Int32(customerInfo.cage))
+            sqlite3_bind_text(updateStatement, 7, (customerInfo.cemail as NSString).utf8String, -1, nil)
+
             if sqlite3_step(updateStatement) != SQLITE_DONE {
                 let errorMessage = String(cString: sqlite3_errmsg(db))
                 print("Error updating customerinfo: \(errorMessage)")
